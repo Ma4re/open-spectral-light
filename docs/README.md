@@ -19,6 +19,19 @@ Read these in order:
 `05-color-science.md` defines project terminology and measurement-claim policy.
 It is intentionally concise and should not grow into a color-science textbook.
 
+## Product requirements
+
+Product requirements live under `requirements/`. They describe intended use,
+accepted constraints, engineering targets, and deliberately open parameters
+without prematurely freezing implementation details.
+
+Current requirement set:
+
+- [`requirements/phase-1-tunable-white.md`](requirements/phase-1-tunable-white.md)
+
+Requirement states are `FROZEN`, `TARGET`, and `OPEN` so unresolved values can be
+documented without being mistaken for final specifications.
+
 ## Theory foundations
 
 Source-backed scientific background lives under `theory/`. These documents
@@ -36,4 +49,4 @@ measurement, or verification need.
 
 Accepted durable decisions belong in `adr/`. Current execution context belongs in
 `agent-handoff.md`. Temporary implementation plans do not override architecture,
-project policy, or accepted ADRs.
+project policy, product requirements, or accepted ADRs.
