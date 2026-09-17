@@ -8,19 +8,11 @@ without making premium features mandatory.
 
 ## Decisions
 
-- Use one monorepo for firmware, electronics, optics, mechanics, optional host
-  software, tools, system/HIL tests, and architecture documentation.
+- Use one monorepo for firmware, electronics, optics, mechanics, optional host software, tools, system/HIL tests, and architecture documentation.
 - Organize modules by responsibility, never by currently considered part number.
-- Reuse the useful Sentinel Core disciplines: explicit architecture boundaries,
-  coding standards, deterministic host tests, HIL honesty, ADRs, CMake presets,
-  formatting/static-analysis configuration, and an agent handoff.
-- Do not import Sentinel-specific complexity such as FOTA, TrustZone policy, CAN,
-  cloud/backend flows, multi-MCU security orchestration, or an RTOS architecture.
-- Firmware update/programming is wired only. OTA/FOTA is explicitly out of scope.
-- BLE is the only planned wireless transport, local-only, and never required for
-  safe/basic lamp operation.
-- Keep the initial build system host-only and MCU-neutral until the controller MCU
-  is selected.
+- Establish explicit architecture boundaries, coding standards, deterministic host tests, honest HIL evidence, ADRs, CMake presets, formatting/static-analysis configuration, and an agent handoff.
+- Keep standalone local operation as the minimum product path, with BLE available as an optional local control and telemetry transport.
+- Keep the initial build system host-only and MCU-neutral until the controller MCU is selected.
 - Do not create empty implementation layers or speculative shared/common code.
 
 ## Firmware architecture

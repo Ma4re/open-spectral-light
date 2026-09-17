@@ -17,12 +17,9 @@ for a basic build.
 
 ## Product principles
 
-- Local operation is primary.
-- No Internet or cloud service is required.
-- No OTA/FOTA path is planned; wired programming is sufficient.
-- BLE may provide local wireless control, but the lamp remains operable without BLE.
+- Standalone local operation is primary; BLE may add local wireless control and telemetry.
 - Hardware modules have stable responsibilities and revision independently when practical.
-- MCU/driver/sensor part choices remain implementation details until an ADR freezes them.
+- MCU, driver, sensor, and emitter choices remain implementation details until an ADR freezes them.
 - Optical and thermal performance are measured, not inferred from marketing values alone.
 - The project avoids speculative abstraction and feature accumulation.
 
@@ -32,15 +29,14 @@ The tiers describe capability, not separate products.
 
 ### Basic
 
-- Tunable white light engine.
+- Tunable-white light engine.
 - Manual/local controls.
 - Safe current and thermal limits.
-- Wired programming/debug.
 
 ### Professional
 
-- Local BLE control.
-- Better dimming/flicker behavior.
+- Optional local BLE control.
+- Better dimming and flicker behavior.
 - Thermal telemetry and compensation.
 - Optional additional emitter channels for spectral correction.
 
@@ -49,12 +45,3 @@ The tiers describe capability, not separate products.
 - Multispectral or spectrometer daughterboard.
 - Characterization of CCT, Duv, spectral distribution, and flicker.
 - Calibration tooling and advanced color-quality metrics when measurement quality supports them.
-
-## Explicit non-goals
-
-- Cloud account infrastructure.
-- Internet-dependent operation.
-- Wi-Fi as a required product feature.
-- OTA/FOTA update systems.
-- A phone app as the only control surface.
-- Premature certification claims or metrology claims.

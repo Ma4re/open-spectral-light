@@ -22,9 +22,8 @@
 - Prefer concrete code over frameworks until a second implementation or a real test seam exists.
 - Do not add folders, interfaces, services, buses, configuration layers, or dependencies for hypothetical future use.
 - Shared runtime code is extracted only after at least two real consumers need the same behavior.
-- The base light must not require a phone, Internet access, a cloud service, or a spectral sensor to operate.
-- OTA/FOTA is out of scope. Firmware updates use wired programming/debug tooling.
-- BLE is the only planned wireless transport and is local-only; its exact implementation is not frozen.
+- The base light must operate without optional BLE control or premium spectral sensing.
+- BLE is an optional local control/telemetry transport; its exact implementation is not frozen.
 
 ## Firmware boundaries
 
@@ -37,7 +36,7 @@
 ## Development and verification
 
 - New portable behavior is test-first: observe RED for the missing behavior, implement the minimum change, then refactor under green tests.
-- Tests are deterministic: no sleeps, wall-clock dependence, uncontrolled randomness, network dependence, or developer-machine paths.
+- Tests are deterministic: no sleeps, wall-clock dependence, uncontrolled randomness, external-service dependence, or developer-machine paths.
 - Important negative/error paths receive tests when they affect output, power, thermal behavior, persistence, or user-visible control.
 - A successful host build/test never proves optical output, flicker, thermal limits, electrical protection, RF behavior, or target timing.
 - Hardware-dependent behavior that remains unverified is stated explicitly in the handoff/PR.

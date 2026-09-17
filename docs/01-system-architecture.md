@@ -3,7 +3,7 @@
 ## 1. Architectural view
 
 ```text
- Local controls / optional BLE / wired service
+      Local controls / optional BLE
                     |
                     v
               Controller
@@ -28,15 +28,14 @@
 The controller is the product authority for requested output, power limits,
 thermal behavior, and user control. The power stage regulates LED current. The
 light engine owns emitters and their physical arrangement. Sensing measures
-physical behavior but must not be required for a basic lamp to emit controlled
-light.
+physical behavior but is not required for a basic lamp to emit controlled light.
 
 ## 2. Module boundaries
 
 ### Controller
 
-Owns product behavior, user/local control, LED-channel setpoints, power budgeting,
-thermal policy, sensor coordination, diagnostics, and the wired programming/debug
+Owns product behavior, local control, LED-channel setpoints, power budgeting,
+thermal policy, sensor coordination, diagnostics, and the programming/debug
 boundary. The MCU is not yet selected.
 
 ### Power stage
@@ -54,7 +53,7 @@ optical source geometry. Channel count and exact wavelengths are not yet frozen.
 
 Optional. Owns physical sensing such as spectral/color measurement, flicker
 measurement, or dedicated temperature sensing when these functions justify a
-separate board. A basic build must work without it.
+separate board. A basic build works without it.
 
 ### Optics
 
@@ -72,17 +71,13 @@ physical protection.
 Optional. May provide calibration, characterization, logging, or convenience
 control. It is not part of the lamp's minimum operational path.
 
-## 3. Connectivity policy
+## 3. Control and connectivity
 
-- The lamp is local-first and offline-capable.
-- BLE is the only planned wireless transport.
-- BLE transports local control/telemetry; it does not become an authority for
-  electrical or thermal safety limits.
-- The exact BLE implementation may be integrated into the main MCU or provided by
-  another module; this remains undecided.
-- Wi-Fi, cloud backends, and Internet-dependent flows are out of scope.
-- Firmware updates are wired. OTA/FOTA must not be introduced without an explicit
-  architecture change.
+- Local controls form the minimum operational control path.
+- BLE is optional and carries local control and telemetry.
+- BLE does not own electrical or thermal safety limits.
+- The BLE implementation may be integrated into the controller MCU or provided by a separate module; this remains undecided.
+- Firmware programming and debugging use the controller's wired development interface.
 
 ## 4. Dependency direction
 

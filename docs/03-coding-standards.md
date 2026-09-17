@@ -1,8 +1,8 @@
 # Coding Standards
 
-These rules apply to project-owned embedded firmware. They intentionally keep the
-strong parts of the Sentinel Core discipline while removing security, FOTA,
-networking, and platform constraints that do not belong in this project.
+These rules apply to project-owned embedded firmware. Their purpose is to keep the
+firmware simple, deterministic, reviewable, portable where useful, and explicit at
+hardware boundaries.
 
 ## 1. Simplicity first
 
@@ -124,7 +124,7 @@ No RTOS architecture is assumed today. If concurrency is introduced:
 
 - New portable behavior is test-first: RED, minimal GREEN, then refactor.
 - Every public `App` behavior has deterministic host coverage appropriate to its risk.
-- Tests do not sleep, use wall-clock timing, require Internet, or depend on a developer-specific path.
+- Tests do not sleep, use wall-clock timing, depend on uncontrolled external services, or use developer-specific paths.
 - A test checks one observable behavior; negative/error paths are covered when they affect output, power, thermal protection, persistence, or user control.
 - Host tests never claim to prove physical optical/electrical/thermal/RF behavior.
 

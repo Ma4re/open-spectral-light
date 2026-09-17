@@ -13,8 +13,7 @@
 ## Global constraints
 
 - No MCU, LED driver, spectral sensor, or emitter family is frozen in this slice.
-- No OTA/FOTA, Wi-Fi, cloud, or Internet dependency is introduced.
-- BLE remains a local optional control transport and no BLE implementation is selected.
+- BLE remains an optional local control transport and no BLE implementation is selected.
 - Do not create empty source layers or shared/common runtime code.
 - The foundation must configure, build, and run CTest from the documented host preset.
 
@@ -24,10 +23,10 @@
 
 **Files:** root README/contribution/agent files, `docs/`, and domain README files.
 
-- [x] Define the project purpose, explicit non-goals, and capability tiers.
+- [x] Define the project purpose and capability tiers.
 - [x] Define responsibility-based module boundaries and dependency direction.
 - [x] Define repository naming/revision rules and no-premature-shared-code rule.
-- [x] Adapt the proven coding/testing discipline without Sentinel-specific features.
+- [x] Define concise coding and testing standards for project-owned firmware.
 - [x] Define color-science terminology and measurement-claim policy.
 
 ### Task 2: Neutral build and quality scaffold
@@ -44,4 +43,4 @@
 - [x] Run `cmake --preset host-debug` and require successful configure.
 - [x] Run `cmake --build --preset host-debug` and require success.
 - [x] Run `ctest --preset host-debug --output-on-failure` and require success.
-- [x] Inspect the final tree for accidental MCU/driver/sensor commitments and forbidden OTA/FOTA/cloud implementation paths.
+- [x] Inspect the final tree for accidental MCU/driver/sensor commitments or speculative subsystems.

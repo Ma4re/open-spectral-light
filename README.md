@@ -3,17 +3,15 @@
 OpenSpectralLight is a modular open-development lighting platform for photography,
 video, and color-science experimentation.
 
-The project is intentionally designed so a useful light can be built without the
-premium modules. A basic build may use only the controller, power stage, and a
-tunable-white light engine; spectral sensing, additional emitter channels, BLE,
-calibration tooling, and advanced characterization are added only when they earn
-their cost and complexity.
+The project is designed so a useful light can be built without premium modules.
+A basic build may use only the controller, power stage, and a tunable-white light
+engine; spectral sensing, additional emitter channels, BLE, calibration tooling,
+and advanced characterization are added only when they earn their cost and
+complexity.
 
 ## Design principles
 
-- **Local first.** The light must remain fully usable without Internet access or a cloud service.
-- **No OTA/FOTA.** Firmware is programmed and updated over a wired development/programming interface.
-- **BLE only when wireless control is useful.** BLE is a local control transport, never an operational dependency.
+- **Standalone first.** The light is fully usable from local controls; BLE is an optional local control and telemetry interface.
 - **Modular hardware.** Controller, power stage, light engine, sensing, optics, and mechanics have explicit boundaries.
 - **Portable application logic.** Hardware-independent control and color logic is host-testable.
 - **Measured claims.** CCT, Duv, flicker, CRI, TM-30, SSI, and related metrics are labeled according to whether they are measured, estimated, or calibrated.

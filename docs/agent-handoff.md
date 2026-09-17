@@ -13,11 +13,8 @@ freezing specific MCU, driver, emitter, or sensor parts.
 
 ## Accepted Constraints
 
-- Local/offline operation is mandatory.
-- OTA/FOTA and cloud/Internet dependencies are out of scope.
-- BLE is the only planned wireless transport and remains optional for lamp operation.
-- Wired programming/debug is the firmware update path.
-- Basic builds must not require premium spectral sensing.
+- Standalone local operation is the minimum product path; BLE control is optional.
+- Basic builds do not require premium spectral sensing.
 - Module names describe responsibilities rather than chosen part numbers.
 - KISS/YAGNI and host-testable portable logic are project-wide rules.
 
