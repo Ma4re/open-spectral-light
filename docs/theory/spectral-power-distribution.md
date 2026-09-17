@@ -18,13 +18,13 @@ For a quantity `X`, the spectral distribution with respect to wavelength is
 conceptually
 
 ```math
-X_lambda(lambda) = dX / dlambda.
+X_\lambda(\lambda) = \frac{dX}{d\lambda}.
 ```
 
 The total value over a wavelength interval is obtained by integration:
 
 ```math
-X = integral X_lambda(lambda) dlambda.
+X = \int X_\lambda(\lambda)\,d\lambda.
 ```
 
 The CIE International Lighting Vocabulary uses **spectral distribution** for the
@@ -47,7 +47,7 @@ A **relative** or **normalized spectrum** preserves spectral shape but not the
 absolute amount of optical power. A common normalization is
 
 ```math
-S_norm(lambda) = S(lambda) / max(S(lambda)).
+S_{\mathrm{norm}}(\lambda) = \frac{S(\lambda)}{\max S(\lambda)}.
 ```
 
 so the maximum value becomes one.
@@ -67,7 +67,7 @@ Real instruments return samples rather than a continuous function. For samples
 weighted sum. On a uniform wavelength grid with interval `Delta lambda`,
 
 ```math
-integral S(lambda) dlambda approximately sum_i S_i Delta lambda.
+\int S(\lambda)\,d\lambda \approx \sum_i S_i\,\Delta\lambda.
 ```
 
 When the wavelength spacing is not uniform, the actual interval between samples
@@ -101,7 +101,7 @@ The **peak wavelength** is the wavelength at which the sampled or fitted spectra
 quantity reaches its maximum.
 
 ```math
-lambda_peak = arg max_lambda S(lambda).
+\lambda_{\mathrm{peak}} = \operatorname*{arg\,max}_{\lambda} S(\lambda).
 ```
 
 For a multi-peaked or noisy spectrum, the reporting method should be stated.
@@ -111,9 +111,9 @@ For a multi-peaked or noisy spectrum, the reporting method should be stated.
 A power-weighted centroid can be defined as
 
 ```math
-lambda_c =
-    (integral lambda S(lambda) dlambda) /
-    (integral S(lambda) dlambda).
+\lambda_c =
+\frac{\int \lambda S(\lambda)\,d\lambda}
+     {\int S(\lambda)\,d\lambda}.
 ```
 
 The centroid describes the balance of a distribution but can lie at a wavelength
@@ -145,14 +145,14 @@ For independent optical channels whose outputs superpose linearly, the resulting
 spectral quantity is the sum of the channel contributions:
 
 ```math
-S_mix(lambda) = sum_i S_i(lambda).
+S_{\mathrm{mix}}(\lambda) = \sum_i S_i(\lambda).
 ```
 
 If the spectral shape of channel `i` is stable and only its amplitude changes,
 a simplified model is
 
 ```math
-S_mix(lambda) = sum_i a_i S_i,ref(lambda),
+S_{\mathrm{mix}}(\lambda) = \sum_i a_i S_{i,\mathrm{ref}}(\lambda),
 ```
 
 where `a_i` is an optical scaling coefficient and `S_i,ref` is a characterized

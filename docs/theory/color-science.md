@@ -21,15 +21,15 @@ tristimulus values. For the CIE 1931 standard observer, a spectral distribution
 functions `x_bar(lambda)`, `y_bar(lambda)`, and `z_bar(lambda)`:
 
 ```math
-X = k integral S(lambda) x_bar(lambda) dlambda
+X = k \int S(\lambda)\,\bar{x}(\lambda)\,d\lambda
 ```
 
 ```math
-Y = k integral S(lambda) y_bar(lambda) dlambda
+Y = k \int S(\lambda)\,\bar{y}(\lambda)\,d\lambda
 ```
 
 ```math
-Z = k integral S(lambda) z_bar(lambda) dlambda.
+Z = k \int S(\lambda)\,\bar{z}(\lambda)\,d\lambda.
 ```
 
 The normalization factor `k` depends on the quantity and calculation context.
@@ -69,15 +69,15 @@ The CIE `x,y,z` chromaticity coordinates are obtained by normalizing the
 tristimulus values:
 
 ```math
-x = X / (X + Y + Z)
+x = \frac{X}{X + Y + Z}
 ```
 
 ```math
-y = Y / (X + Y + Z)
+y = \frac{Y}{X + Y + Z}
 ```
 
 ```math
-z = Z / (X + Y + Z) = 1 - x - y.
+z = \frac{Z}{X + Y + Z} = 1 - x - y.
 ```
 
 Only two coordinates are independent, so `x,y` are normally sufficient to
@@ -95,11 +95,11 @@ different SPDs can map to the same `x,y` point.
 The CIE 1976 UCS chromaticity coordinates can be calculated from `X,Y,Z` as
 
 ```math
-u' = 4X / (X + 15Y + 3Z)
+u' = \frac{4X}{X + 15Y + 3Z}
 ```
 
 ```math
-v' = 9Y / (X + 15Y + 3Z).
+v' = \frac{9Y}{X + 15Y + 3Z}.
 ```
 
 The 1976 UCS diagram was designed to provide more nearly uniform chromaticity

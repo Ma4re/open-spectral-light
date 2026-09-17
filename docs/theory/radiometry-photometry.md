@@ -73,13 +73,13 @@ generic quantity `X`, its spectral distribution with respect to wavelength is
 written conceptually as
 
 ```math
-X_lambda(lambda) = dX / dlambda
+X_\lambda(\lambda) = \frac{dX}{d\lambda}
 ```
 
 and the total quantity over a wavelength interval is
 
 ```math
-X = integral X_lambda(lambda) dlambda.
+X = \int X_\lambda(\lambda)\,d\lambda.
 ```
 
 The exact unit of `X_lambda` depends on both `X` and the wavelength unit used.
@@ -100,7 +100,7 @@ photopic spectral luminous-efficiency function `V(lambda)`.
 For spectral irradiance, illuminance can be represented as
 
 ```math
-E_v = K_cd integral E_e,lambda(lambda) V(lambda) dlambda,
+E_v = K_{\mathrm{cd}} \int E_{e,\lambda}(\lambda)\,V(\lambda)\,d\lambda,
 ```
 
 where `K_cd = 683 lm/W` is the SI luminous-efficacy constant and `V(lambda)` is
@@ -123,7 +123,7 @@ For a small source treated as a point source in the far field, irradiance on a
 surface normal to the source direction follows an inverse-square relationship:
 
 ```math
-E proportional to 1 / r^2.
+E \propto \frac{1}{r^2}.
 ```
 
 Doubling the distance then reduces irradiance to approximately one quarter.
@@ -140,7 +140,7 @@ area decreases as the angle from the surface normal increases. Under the usual
 ideal assumptions,
 
 ```math
-E(theta) = E(0) cos(theta).
+E(\theta) = E(0)\cos(\theta).
 ```
 
 This is commonly called the cosine law of incidence. Practical detector heads
