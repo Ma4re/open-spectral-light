@@ -31,19 +31,19 @@
 - Consumes: terminology/policy in `docs/05-color-science.md` and current system architecture.
 - Produces: referenced scientific foundation for future LED, optics, sensing, calibration, and camera-related decisions.
 
-- [ ] **Step 1: Write `radiometry-photometry.md`**
+- [x] **Step 1: Write `radiometry-photometry.md`**
 
 Define radiometric versus photometric quantities, spectral weighting, geometry laws, limitations, and implications for OpenSpectralLight. Cite CIE S 017:2020 and NIST photometry/radiometry references.
 
-- [ ] **Step 2: Write `spectral-power-distribution.md`**
+- [x] **Step 2: Write `spectral-power-distribution.md`**
 
 Define spectral distributions, absolute versus relative SPDs, integration/discretization, spectral descriptors, additive mixing, metamerism, and measurement/representation caveats. Cite CIE S 017:2020, CIE 015:2018, and NIST material.
 
-- [ ] **Step 3: Write `color-science.md`**
+- [x] **Step 3: Write `color-science.md`**
 
 Explain the SPD-to-XYZ path, standard observers, chromaticity, CCT/Duv, metamerism, and color rendition without duplicating project policy. Cite CIE 015:2018, CIE S 017:2020, NIST Ohno material, ANSI/IES TM-30-24, and ANSI/IES TM-40-24.
 
-- [ ] **Step 4: Verify scientific and documentation consistency**
+- [x] **Step 4: Verify scientific and documentation consistency**
 
 Check that equations use consistent symbols/units, each source URL resolves to an authoritative publisher, no chapter claims that chromaticity uniquely determines a spectrum, and no hardware part is selected by inference.
 
@@ -58,22 +58,22 @@ Check that equations use consistent symbols/units, each source URL resolves to a
 - Consumes: the three theory chapters from Task 1.
 - Produces: discoverable documentation and an accurate current-state handoff.
 
-- [ ] **Step 1: Update documentation navigation**
+- [x] **Step 1: Update documentation navigation**
 
 Keep the numbered core documents as the architecture/policy reading path, then add a separate `Theory foundations` section linking the three chapters in their recommended learning order.
 
-- [ ] **Step 2: Update repository organization**
+- [x] **Step 2: Update repository organization**
 
 State that `docs/theory/` owns source-backed scientific background while root numbered docs retain cross-system architecture, standards, and project policy.
 
-- [ ] **Step 3: Update handoff**
+- [x] **Step 3: Update handoff**
 
 Record that the first theory foundation exists, while preserving the current active goal and open hardware decisions.
 
-- [ ] **Step 4: Verify final diff**
+- [x] **Step 4: Verify final diff**
 
 Confirm that the branch changes are documentation-only, internal links resolve, no unrelated file changed, and the next exact hardware-selection step remains unchanged.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 Commit the completed slice as `docs: add sourced theory foundations`.

@@ -3,8 +3,10 @@
 ## Current State
 
 Repository foundation only. The system architecture, repository boundaries,
-coding standard, testing philosophy, color-science terminology, and initial CI
-scaffold are defined. No production firmware or hardware design is implemented.
+coding standard, testing philosophy, color-science terminology/measurement
+policy, and initial CI scaffold are defined. The first source-backed theory
+foundation now covers radiometry/photometry, spectral power distributions, and
+core colorimetry. No production firmware or hardware design is implemented.
 
 ## Active Goal
 
@@ -17,6 +19,7 @@ freezing specific MCU, driver, emitter, or sensor parts.
 - Basic builds do not require premium spectral sensing.
 - Module names describe responsibilities rather than chosen part numbers.
 - KISS/YAGNI and host-testable portable logic are project-wide rules.
+- Theory documents explain scientific principles and design implications; they do not freeze implementation choices.
 
 ## Open Decisions
 
@@ -40,5 +43,5 @@ because no hardware revision has been designed or built.
 ## Next Exact Step
 
 Define requirements and trade-offs for the Phase 1 basic tunable-white vertical
-slice, then record the first hardware-selection ADR only after that comparison is
-complete.
+slice, using the theory foundation to keep quantities and claims precise, then
+record the first hardware-selection ADR only after that comparison is complete.

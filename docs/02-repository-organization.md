@@ -11,7 +11,7 @@
 | `software/` | Optional user/host applications and calibration software. |
 | `tools/` | Developer utilities that are not shipped as product software. |
 | `tests/` | System, characterization, and HIL assets spanning product modules. |
-| `docs/` | Architecture, standards, ADRs, color-science definitions, and roadmap. |
+| `docs/` | Architecture, standards, source-backed theory, ADRs, project policy, and roadmap. |
 
 ## Naming
 
@@ -65,7 +65,8 @@ that is necessary for interoperability.
 
 ## Documentation ownership
 
-- Root architecture documents describe cross-system responsibilities and contracts.
+- Root numbered documents describe cross-system architecture, engineering standards, and project policy.
+- `docs/theory/` contains source-backed scientific background that explains physical principles and their design implications without freezing implementation choices.
 - Module README/docs describe module-specific implementation facts.
 - ADRs capture durable choices and their trade-offs.
 - `agent-handoff.md` captures current work state and must not become permanent architecture.
