@@ -101,7 +101,7 @@ The **peak wavelength** is the wavelength at which the sampled or fitted spectra
 quantity reaches its maximum.
 
 ```math
-\lambda_{\mathrm{peak}} = \operatorname*{arg\,max}_{\lambda} S(\lambda).
+\lambda_{\mathrm{peak}} = \mathrm{arg\,max}_{\lambda}\, S(\lambda).
 ```
 
 For a multi-peaked or noisy spectrum, the reporting method should be stated.
