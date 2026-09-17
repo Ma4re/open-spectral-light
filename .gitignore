@@ -1,0 +1,30 @@
+# CMake and build output
+/out/
+/build/
+CMakeUserPresets.json
+compile_commands.json
+
+# IDE/editor state
+.vscode/
+.idea/
+*.user
+*.swp
+*.swo
+
+# Python tooling
+__pycache__/
+*.py[cod]
+.venv/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# KiCad local/session artifacts
+*.kicad_prl
+*.kicad_sch-bak
+*~
+
+# Generated/debug target output
+**/Debug/
+**/Release/
