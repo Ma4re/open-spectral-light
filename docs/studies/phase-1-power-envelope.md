@@ -96,7 +96,9 @@ photographic, film, studio, stage, and entertainment lighting.
 
 ### 4.1 300 W-class matrix
 
-The Yujileds B3240003.26 datasheet labels this package:
+Yujileds currently shows code `B3220003.26` on the product page, while the linked V1.5 datasheet shows `B3240003.26`. Until Yujileds confirms the active order code, this study treats them as the same 300 W-class published specification rather than assuming either code is correct.
+
+The V1.5 datasheet labels the package:
 
 > Chip-on-Board bicolor / Rated 300W; Max 720W / Bicolor
 
@@ -128,7 +130,9 @@ far more compact optically than a many-COB cluster.
 
 ### 4.2 500 W-class matrix
 
-The Yujileds B3240005.26 datasheet labels this package:
+Yujileds currently shows code `B3220005.26` on the product page, while the linked V1.5 datasheet shows `B3240005.26`. Until Yujileds confirms the active order code, this study treats them as the same 500 W-class published specification rather than assuming either code is correct.
+
+The V1.5 datasheet labels the package:
 
 > Chip-on-Board bicolor / Rated 500W; Max 1440W / Bicolor
 
