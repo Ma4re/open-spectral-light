@@ -13,8 +13,11 @@ confirms that this limit case is a several-hundred-watt-class problem. The
 preferred high-power prototype direction is now a purpose-built bicolor
 film/studio LED matrix, with 300 W- and 500 W-class Yujileds modules as research
 candidates; a Bridgelux Thrive cluster remains a quality/fallback reference.
-No emitter part number is frozen and no production firmware or hardware design
-is implemented.
+Public Yujileds pages confirm both matrix families remain listed, but pricing is
+quote-based and the current web pages disagree with datasheet V1.5 on the
+B322/B324 part-number prefix. A reproducible bench characterization plan is now
+defined. No emitter part number is frozen and no production firmware or hardware
+design is implemented.
 
 ## Active Goal
 
@@ -60,8 +63,9 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Verify procurement and the continuous combined WW/CW operating envelope of the
-300 W- and 500 W-class bicolor matrix candidates, then define the first bench
-characterization plan for modifier loss, output, CCT/Duv path, and thermal drift.
-Complete the temporal-modulation and camera-interaction theory before freezing
-the driver topology.
+Request manufacturer clarification/quotation for the 300 W- and 500 W-class
+bicolor matrices, specifically the active order code and safe continuous
+combined WW/CW operating envelope. In parallel, prepare the instruments and
+thermal fixture required by the defined bench characterization plan. Complete
+the temporal-modulation and camera-interaction theory before freezing the driver
+topology.
