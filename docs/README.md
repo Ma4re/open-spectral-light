@@ -58,6 +58,8 @@ Current studies:
 
 - [`studies/phase-1-light-engine.md`](studies/phase-1-light-engine.md)
 - [`studies/phase-1-power-envelope.md`](studies/phase-1-power-envelope.md)
+- [`studies/phase-1-emitter-procurement.md`](studies/phase-1-emitter-procurement.md)
+- [`studies/phase-1-bench-characterization.md`](studies/phase-1-bench-characterization.md)
 
 Accepted durable decisions belong in `adr/`. Current execution context belongs in
 `agent-handoff.md`. Temporary implementation plans do not override architecture,
