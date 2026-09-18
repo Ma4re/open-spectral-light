@@ -77,10 +77,18 @@ spectral flexibility**. It must not be used to excuse poor base light quality.
 |---|---|---|
 | TMP-001 | FROZEN | Phase 1 requires manual intensity adjustment; programmed fades and lighting effects are not required. |
 | TMP-002 | TARGET | Dimming shall be visually smooth and provide useful low-output control without obvious step changes. |
-| TMP-003 | OPEN | Minimum stable dimming level and control resolution shall be derived from driver topology and visual/camera validation. |
-| TMP-004 | FROZEN | The light shall support normal video acquisition up to 60 fps without visible flicker or banding under the validated operating matrix. |
-| TMP-005 | OPEN | The exact shutter-speed/exposure-time validation matrix shall be defined after `temporal-light-modulation.md` and `camera-interaction.md` are completed. |
+| TMP-003 | OPEN | Minimum stable continuous-current dimming level and final control resolution shall be derived from emitter/driver characterization. |
+| TMP-004 | FROZEN | The light shall support normal video acquisition up to 60 fps without visible brightness or color banding under the validated operating matrix. |
+| TMP-005 | FROZEN | The Phase 1 creative acceptance baseline shall cover approximately 24 fps / 1/48 s, 25 fps / 1/50 s, 30 fps / 1/60 s, 50 fps / 1/100 s, and 60 fps / 1/120 s. |
 | TMP-006 | FROZEN | Frame rate alone shall not be treated as sufficient evidence of flicker-free behavior; exposure time and rolling-shutter interaction must also be considered. |
+| TMP-007 | FROZEN | Normal tunable-white operation shall not rely on time-division alternation of warm and cool channels as the default method for synthesizing CCT. The intended spectral mix should be emitted concurrently. |
+| TMP-008 | TARGET | Continuous-current/amplitude dimming should cover as much of the principal video operating range as practical. Any PWM or hybrid deep-dimming region shall be optically measured and camera-validated. |
+| TMP-009 | TARGET | Robustness characterization shall probe faster shutter times around 1/250 s, 1/500 s, and 1/1000 s to identify the temporal limit; these points are not yet guaranteed product specifications. |
+| TMP-010 | TARGET | If PWM is used while both white channels are active, synchronized/common temporal gating is preferred so the instantaneous WW/CW spectral ratio is preserved. |
+
+The temporal requirements are grounded by
+[`../theory/temporal-light-modulation.md`](../theory/temporal-light-modulation.md)
+and [`../theory/camera-interaction.md`](../theory/camera-interaction.md).
 
 120 fps is not a Phase 1 creative-use requirement. It may still be exercised in
 engineering characterization if useful, but the product is not being designed
@@ -242,7 +250,7 @@ The next work should resolve these questions in roughly this order:
 1. Is **1200 lx at 2 m through the limit modifier** achievable at a sensible electrical/thermal cost, or does the modifier/output trade-off need adjustment?
 2. Is 2700–6500 K the best useful range after emitter-efficiency and color-quality trade-offs are considered?
 3. What emitter/channel architecture provides high-quality tunable white while preserving a path to tint/spectral expansion?
-4. What temporal-modulation strategy is required for the camera/shutter matrix?
+4. What current-regulation/power-stage topology best implements the accepted temporal requirements over the required WW/CW current range?
 5. What electrical power follows from the 1200 lx limit-case target?
 6. What external DC voltage and connector are appropriate at that power level?
 7. What thermal architecture and acoustic target follow from sustained power dissipation?
