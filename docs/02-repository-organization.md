@@ -67,6 +67,7 @@ that is necessary for interoperability.
 
 - Root numbered documents describe cross-system architecture, engineering standards, and project policy.
 - `docs/theory/` contains source-backed scientific background that explains physical principles and their design implications without freezing implementation choices.
+- `docs/studies/` contains pre-decision engineering comparisons, feasibility checks, and prototype directions. Studies do not freeze hardware; accepted durable choices move to ADRs.
 - Module README/docs describe module-specific implementation facts.
 - ADRs capture durable choices and their trade-offs.
 - `agent-handoff.md` captures current work state and must not become permanent architecture.
