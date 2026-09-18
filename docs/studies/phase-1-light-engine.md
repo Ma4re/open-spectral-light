@@ -172,16 +172,20 @@ The parts below are **research candidates**, not approved BOM items.
 | Family | Relevant published data | Why it matters | Current limitation |
 |---|---|---|---|
 | Bridgelux Vesta Thrive tunable white | 2700–6500 K variants; typical CRI 98; 18 mm array about 32 W nominal per endpoint at nominal current | Strong documented color quality and integrated warm/cool mixing | One unit is far below the current upper-output requirement; a large cluster would increase emitting area |
-| Yujileds B3240003.26 bicolor matrix | 2700/6500 K; 4 A endpoint test; 10.8/13.8 klm; Ra >=95, R9 90, TM-30 Rf/Rg 92/100, TLCI 97; ~40 mm emitting region | Purpose-built high-power film/studio source in compact geometry | Combined continuous WW/CW power envelope and procurement must be confirmed |
-| Yujileds B3240005.26 bicolor matrix | 2700/6500 K; 8.4 A endpoint test; 20.0/25.6 klm; Ra >=95, R9 90, TM-30 Rf/Rg 92/100, TLCI 97 | Single-matrix candidate closest to the current high-output limit case | High thermal load; combined continuous WW/CW power envelope and procurement must be confirmed |
+| Yujileds 300 W-class bicolor matrix | 2700/6500 K; 4 A endpoint test; 10.8/13.8 klm; Ra >=95, R9 90, TM-30 Rf/Rg 92/100, TLCI 97; ~40 mm emitting region | Purpose-built high-power film/studio source in compact geometry | Combined continuous WW/CW power envelope and procurement must be confirmed |
+| Yujileds 500 W-class bicolor matrix | 2700/6500 K; 8.4 A endpoint test; 20.0/25.6 klm; Ra >=95, R9 90, TM-30 Rf/Rg 92/100, TLCI 97 | Single-matrix candidate closest to the current high-output limit case | High thermal load; combined continuous WW/CW power envelope and procurement must be confirmed |
 | Bridgelux Vesta standard / SE high-output TW | 2700–6500 K; up to roughly 55 W nominal and 7.35 klm in current SE 29 mm family; CRI around 92 | Higher flux in an established tunable COB ecosystem | Color-quality target is weaker than Thrive |
 | Luminus Dynamic COB Gen 2 CTM-22 | 2700 K / 6500 K; CRI min 90; 36 W nominal per channel; about 6010/6480 lm at Tj=85 C at the endpoints | High output from a compact dual-channel COB | CRI 90 alone is not enough evidence for the desired camera/skin quality |
 | Nichia tunable-white COB | Current recommended/legacy tunable-white families exist around 10–42 W class | Strong manufacturer documentation and binning | Published tunable-white examples are CRI 90 / R9 50 class, below the desired fidelity direction |
 | Nichia Optisolis single-CCT COB/SMD | Ra98–99 technology positioning; high-fidelity warm and cool products | Useful spectral-quality benchmark and possible separate-white/custom-array source | Not a high-power integrated 2700–6500 K tunable COB; would require multi-emitter mixing |
 
-No family is selected yet. Availability, pricing, thermal data, guaranteed bins,
-SPD access, and distributor access still need to be checked before a BOM
-decision.
+No family is selected yet. The Yujileds product pages and linked V1.5 datasheet
+currently disagree on the B322/B324 part-number prefix for both high-power
+bicolor candidates. Procurement, pricing, thermal data, guaranteed bins, SPD
+access, and the valid order code must be confirmed before a BOM decision.
+
+Procurement status is tracked in
+[`phase-1-emitter-procurement.md`](phase-1-emitter-procurement.md).
 
 ## 5. Color-quality observation
 
