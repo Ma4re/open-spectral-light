@@ -44,6 +44,8 @@ Recommended starting order:
 2. [`theory/spectral-power-distribution.md`](theory/spectral-power-distribution.md)
 3. [`theory/color-science.md`](theory/color-science.md)
 4. [`theory/led-emission-behavior.md`](theory/led-emission-behavior.md)
+5. [`theory/temporal-light-modulation.md`](theory/temporal-light-modulation.md)
+6. [`theory/camera-interaction.md`](theory/camera-interaction.md)
 
 Additional theory chapters should be added only when they support a real design,
 measurement, or verification need.
@@ -60,6 +62,7 @@ Current studies:
 - [`studies/phase-1-power-envelope.md`](studies/phase-1-power-envelope.md)
 - [`studies/phase-1-emitter-procurement.md`](studies/phase-1-emitter-procurement.md)
 - [`studies/phase-1-bench-characterization.md`](studies/phase-1-bench-characterization.md)
+- [`studies/phase-1-temporal-driver-requirements.md`](studies/phase-1-temporal-driver-requirements.md)
 
 Accepted durable decisions belong in `adr/`. Current execution context belongs in
 `agent-handoff.md`. Temporary implementation plans do not override architecture,
