@@ -5,11 +5,14 @@
 Repository foundation only. The system architecture, repository boundaries,
 coding standard, testing philosophy, color-science terminology/measurement
 policy, and initial CI scaffold are defined. The first source-backed theory
-foundation covers radiometry/photometry, spectral power distributions, and core
-colorimetry. Phase 1 product requirements now define the intended tunable-white
-key/fill-light use case, modifier interface, working distance, power approach,
-local-control direction, and the engineering parameters that remain open. No
-production firmware or hardware design is implemented.
+foundation covers radiometry/photometry, spectral power distributions, core
+colorimetry, and LED emission behavior. Phase 1 product requirements define the
+tunable-white key/fill-light use case and an upper engineering target of 1200 lx
+at 2 m through the large reference-modifier scenario. A first light-engine study
+finds that this limit case is a several-hundred-watt-class problem and recommends
+a symmetric tunable-white COB cluster as the first prototype direction while
+preserving expansion capacity for auxiliary spectral channels. No production
+firmware or hardware design is implemented.
 
 ## Active Goal
 
@@ -32,7 +35,7 @@ connector, or sensor parts.
 
 ## Open Decisions
 
-- Reference softbox and quantitative illuminance target at 1 m and 2 m.
+- Whether the 1200 lx at 2 m limit target remains practical after real modifier, thermal, acoustic, and cost validation.
 - Final CCT range after emitter/channel trade-off analysis; 2700–6500 K is the current target.
 - Emitter/channel architecture and future tint/spectral-expansion path.
 - Temporal-modulation/driver strategy and camera shutter validation matrix.
@@ -55,7 +58,8 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Define the reference exposure/softbox scenarios and derive the required
-illuminance at 1 m and 2 m. Then complete the LED-emission, temporal-modulation,
-and camera-interaction theory needed to refine emitter and driver requirements
-before component selection.
+Quantify candidate tunable-white COB cluster sizes and electrical/thermal power
+against the 1200 lx limit target, then define the first bench characterization
+plan for modifier loss, CCT/Duv path, thermal drift, and output. Complete the
+temporal-modulation and camera-interaction theory before freezing the driver
+topology.
