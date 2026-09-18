@@ -8,11 +8,13 @@ policy, and initial CI scaffold are defined. The first source-backed theory
 foundation covers radiometry/photometry, spectral power distributions, core
 colorimetry, and LED emission behavior. Phase 1 product requirements define the
 tunable-white key/fill-light use case and an upper engineering target of 1200 lx
-at 2 m through the large reference-modifier scenario. A first light-engine study
-finds that this limit case is a several-hundred-watt-class problem and recommends
-a symmetric tunable-white COB cluster as the first prototype direction while
-preserving expansion capacity for auxiliary spectral channels. No production
-firmware or hardware design is implemented.
+at 2 m through the large reference-modifier scenario. Power-envelope work
+confirms that this limit case is a several-hundred-watt-class problem. The
+preferred high-power prototype direction is now a purpose-built bicolor
+film/studio LED matrix, with 300 W- and 500 W-class Yujileds modules as research
+candidates; a Bridgelux Thrive cluster remains a quality/fallback reference.
+No emitter part number is frozen and no production firmware or hardware design
+is implemented.
 
 ## Active Goal
 
@@ -58,8 +60,8 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Quantify candidate tunable-white COB cluster sizes and electrical/thermal power
-against the 1200 lx limit target, then define the first bench characterization
-plan for modifier loss, CCT/Duv path, thermal drift, and output. Complete the
-temporal-modulation and camera-interaction theory before freezing the driver
-topology.
+Verify procurement and the continuous combined WW/CW operating envelope of the
+300 W- and 500 W-class bicolor matrix candidates, then define the first bench
+characterization plan for modifier loss, output, CCT/Duv path, and thermal drift.
+Complete the temporal-modulation and camera-interaction theory before freezing
+the driver topology.
