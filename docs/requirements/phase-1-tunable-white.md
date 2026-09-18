@@ -46,15 +46,16 @@ A TARGET is not a guaranteed specification.
 | OPT-003 | TARGET | Phase 1 should support a useful CCT range of approximately **2700–6500 K**. This range includes conventional tungsten-like and daylight-like working points without prioritizing extreme CCT range over output or spectral quality. |
 | OPT-004 | OPEN | Final CCT endpoints shall be frozen only after emitter/channel architecture is evaluated for output, tint control, efficiency, and color quality across the range. |
 | OPT-005 | FROZEN | Electrical input wattage shall not be used as the primary optical-performance requirement. |
-| OPT-006 | OPEN | Required illuminance at the subject shall be derived from realistic camera exposure scenarios and measured through a defined reference softbox at 1 m and 2 m. |
-| OPT-007 | OPEN | Reference softbox size and geometry for performance validation shall be selected before publishing illuminance targets. |
+| OPT-006 | TARGET | The initial upper output target is **1200 lx at the subject plane** through the limit reference modifier at **2 m**, measured on axis with a flat illuminance detector normal to the fixture centerline. |
+| OPT-007 | FROZEN | Modifier validation shall include a normal **~90 cm Bowens octabox/deep softbox with double diffusion** and a limit **~120 cm Bowens parabolic/octabox with double diffusion and grid**. Exact reference products remain OPEN until test hardware is selected. |
 | OPT-008 | TARGET | Output should remain useful as a key light at 2 m for the intended close/medium-shot use case, not merely as a fill light. |
 | OPT-009 | OPEN | Spatial-uniformity and angular color-uniformity limits shall be defined after the optical mixing architecture is selected. |
+| OPT-010 | FROZEN | Published output validation shall state modifier, diffusion layers, grid state, distance measured from the front diffusion plane, CCT, and detector orientation. |
 
-The illuminance target will be derived from the desired photographic exposure,
-not chosen from a nominal competitor wattage. Candidate exposure cases should
-cover normal video shutter settings and practical apertures/ISO values for
-indoor portrait and music-video work.
+The 1200 lx target is derived from realistic camera exposure rather than from
+competitor electrical wattage. It is intentionally an engineering target, not a
+guaranteed product specification. It must be rechecked after the actual light
+engine and reference modifier are characterized.
 
 ## 5. Color-quality and upgrade requirements
 
@@ -143,25 +144,65 @@ allowing height and tilt adjustment independently of the Bowens modifier mount.
 | CST-003 | FROZEN | The architecture shall permit a lower-cost useful base configuration and incremental capability upgrades where technically sensible. |
 | CST-004 | FROZEN | Optional premium modules shall not be required for safe basic light operation. |
 
-## 12. Phase 1 validation scenarios
+## 12. Reference exposure model and validation scenarios
 
-The following scenarios define the direction of later quantitative testing. Exact
-acceptance values remain OPEN until the relevant theory and component studies are
-complete.
+### 12.1 Exposure basis
 
-### V1 — Key light, close/medium portrait
+For the first illuminance target, use the incident-light exposure relationship
 
-- subject distance: 1 m;
-- Bowens softbox installed;
+```math
+E = \frac{C N^2}{t S},
+```
+
+where `E` is illuminance in lux, `N` is f-number, `t` is exposure time in
+seconds, `S` is ISO arithmetic speed, and `C` is the incident-meter calibration
+constant. A **flat receptor value of C = 250** is used so the calculation maps to
+a reproducible planar illuminance measurement rather than a hemispherical
+portrait-meter reading.
+
+The design allowance is **+1 stop of illuminance headroom**, so the engineering
+target is twice the calculated exposure minimum.
+
+| Video case | Exposure | Minimum illuminance | +1 stop design target |
+|---|---|---:|---:|
+| 24 fps, 180° | f/2.8, ISO 400, 1/48 s | 235 lx | 470 lx |
+| 25 fps, 180° | f/2.8, ISO 400, 1/50 s | 245 lx | 490 lx |
+| 30 fps, 180° | f/2.8, ISO 400, 1/60 s | 294 lx | 588 lx |
+| 24 fps, 180° | f/4, ISO 400, 1/48 s | 480 lx | 960 lx |
+| 25 fps, 180° | f/4, ISO 400, 1/50 s | 500 lx | 1000 lx |
+| 30 fps, 180° | f/4, ISO 400, 1/60 s | 600 lx | **1200 lx** |
+| 50 fps, 180° | f/2.8, ISO 400, 1/100 s | 490 lx | 980 lx |
+| 60 fps, 180° | f/2.8, ISO 400, 1/120 s | 588 lx | **1176 lx** |
+
+The two most demanding Phase 1 creative cases therefore converge near **1200 lx**:
+30 fps at f/4 and 60 fps at f/2.8, both at ISO 400 with one stop of reserve. Phase
+1 does **not** require f/4 at 50/60 fps; doing so would raise the target toward
+2000–2400 lx and materially increase light-engine and thermal requirements for a
+use case outside the agreed priority.
+
+This relationship establishes a repeatable engineering baseline. Real cameras
+may differ due to ISO calibration, lens transmission (T-stop versus f-stop),
+picture profile, desired highlight margin, and artistic exposure. Final validation
+therefore includes both photometric measurement and real camera tests.
+
+### V1 — Normal key light
+
+- nominal 90 cm Bowens octabox/deep softbox;
+- double diffusion;
+- no grid;
+- 1–1.5 m from the front diffusion plane to the subject;
 - portrait/close or half-body framing;
-- output sufficient for practical camera exposure without requiring extreme ISO.
+- 24/25/30 fps;
+- f/2.8–f/4 around ISO 400.
 
-### V2 — Key light at room-scale distance
+### V2 — Limit key-light case
 
-- subject distance: 2 m;
-- Bowens softbox installed;
+- nominal 120 cm Bowens parabolic/octabox;
+- double diffusion plus grid;
+- 2 m from the front diffusion plane to the subject;
 - portrait/half-body framing;
-- useful key-light exposure remains achievable.
+- 60 fps, 1/120 s, f/2.8, ISO 400;
+- **TARGET: at least 1200 lx on axis at the subject plane**, providing approximately one stop of margin over the calculated exposure minimum.
 
 ### V3 — Fill light
 
@@ -173,7 +214,7 @@ complete.
 
 - cameras and smartphones;
 - 24/25/30/50/60 fps as applicable;
-- common cinematic and faster shutter settings;
+- 180°-equivalent exposure times plus selected faster shutter cases;
 - no visible temporal artefacts within the validated matrix.
 
 ### V5 — Sustained operation
@@ -182,18 +223,47 @@ complete.
 - thermal equilibrium reached;
 - no unsafe temperature, uncontrolled output drift, or unacceptable acoustic behavior.
 
+### 12.2 Reference-method notes
+
+A 90 cm circular Bowens softbox and larger 120 cm parabolic softboxes are common
+real-world modifier classes. Commercial examples also use inner/front diffusion
+and optional fabric grids, so these scenarios are intentionally representative
+of practical portrait/video use rather than bare-reflector photometrics.
+
+The reference modifier brand/model remains OPEN because different fabrics,
+depths, reflective interiors, inner baffles, and grids have different optical
+losses. The actual Phase 1 acceptance test must use one documented physical
+modifier so later measurements are repeatable.
+
 ## 13. Open engineering questions
 
 The next work should resolve these questions in roughly this order:
 
-1. What reference exposure scenarios should define required illuminance through the softbox at 1 m and 2 m?
+1. Is **1200 lx at 2 m through the limit modifier** achievable at a sensible electrical/thermal cost, or does the modifier/output trade-off need adjustment?
 2. Is 2700–6500 K the best useful range after emitter-efficiency and color-quality trade-offs are considered?
 3. What emitter/channel architecture provides high-quality tunable white while preserving a path to tint/spectral expansion?
 4. What temporal-modulation strategy is required for the camera/shutter matrix?
-5. What electrical power follows from those optical requirements?
+5. What electrical power follows from the 1200 lx limit-case target?
 6. What external DC voltage and connector are appropriate at that power level?
 7. What thermal architecture and acoustic target follow from sustained power dissipation?
 8. Which local parameters actually exist in Phase 1, and does the encoder require supporting buttons?
 
 These questions must be answered before individual LED, driver, connector, fan,
 or MCU part numbers are frozen.
+
+## 14. References for the exposure baseline
+
+1. ISO, **ISO 2720:1974 — Photography — General purpose photographic exposure
+   meters (photoelectric type) — Guide to product specification**. The standard
+   was reviewed and confirmed in 2026.
+   https://www.iso.org/standard/7690.html
+2. Sekonic, **L-758 Operating Manual**, technical data: incident-light
+   calibration constants `C = 340` for the Lumisphere and `C = 250` for the
+   flat diffuser.
+   https://sekonic.com/content/Files/manual/L-758/l-758_operating_manual_en.pdf
+3. Aputure, **Light Dome III**, 90 cm Bowens softbox with diffusion options and
+   fabric light-control grid.
+   https://aputure.com/en-US/products/light-dome-iii
+4. Godox, **QR-P Series Quick Release Parabolic Softbox**, including 120 cm-class
+   Bowens modifiers with inner/front diffusion and optional grids.
+   https://www.godox.com/product-d/QR-Series.html
