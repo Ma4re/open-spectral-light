@@ -6,7 +6,8 @@ Repository foundation only. The system architecture, repository boundaries,
 coding standard, testing philosophy, color-science terminology/measurement
 policy, and initial CI scaffold are defined. The first source-backed theory
 foundation covers radiometry/photometry, spectral power distributions, core
-colorimetry, and LED emission behavior. Phase 1 product requirements define the
+colorimetry, LED emission behavior, temporal light modulation, and camera
+interaction. Phase 1 product requirements define the
 tunable-white key/fill-light use case and an upper engineering target of 1200 lx
 at 2 m through the large reference-modifier scenario. Power-envelope work
 confirms that this limit case is a several-hundred-watt-class problem. The
@@ -15,9 +16,12 @@ film/studio LED matrix, with 300 W- and 500 W-class Yujileds modules as research
 candidates; a Bridgelux Thrive cluster remains a quality/fallback reference.
 Public Yujileds pages confirm both matrix families remain listed, but pricing is
 quote-based and the current web pages disagree with datasheet V1.5 on the
-B322/B324 part-number prefix. A reproducible bench characterization plan is now
-defined. No emitter part number is frozen and no production firmware or hardware
-design is implemented.
+B322/B324 part-number prefix. A reproducible bench characterization plan and temporal driver requirements are
+now defined. The preferred temporal strategy is concurrent WW/CW current control
+with continuous-current dimming across the principal video range and validated
+synchronized PWM/hybrid control only if needed for deep dimming. No emitter or
+driver part number is frozen and no production firmware or hardware design is
+implemented.
 
 ## Active Goal
 
@@ -33,7 +37,9 @@ connector, or sensor parts.
 - Primary use is key/fill lighting for portrait, close/medium shots, and music-video scenes at approximately 1–2 m.
 - Bowens S-mount is the modifier interface.
 - Mains AC conversion remains external to the lighting head; the head accepts a defined external DC input.
-- Normal-speed video compatibility through 60 fps is required, but shutter/exposure interaction must also be validated.
+- Normal-speed video compatibility through 60 fps is required using the 24/25/30/50/60 fps 180-degree-equivalent shutter baseline; faster shutters are characterization points.
+- Normal CCT control shall use concurrent spectral mixing rather than alternating WW/CW time-division as the default mechanism.
+- Any PWM/hybrid dimming region must be optically measured and camera-validated; PWM frequency alone is not proof of camera compatibility.
 - Module names describe responsibilities rather than chosen part numbers.
 - KISS/YAGNI and host-testable portable logic are project-wide rules.
 - Theory documents explain scientific principles and design implications; they do not freeze implementation choices.
@@ -43,7 +49,7 @@ connector, or sensor parts.
 - Whether the 1200 lx at 2 m limit target remains practical after real modifier, thermal, acoustic, and cost validation.
 - Final CCT range after emitter/channel trade-off analysis; 2700–6500 K is the current target.
 - Emitter/channel architecture and future tint/spectral-expansion path.
-- Temporal-modulation/driver strategy and camera shutter validation matrix.
+- Driver power-stage/current-regulation topology and the minimum continuous-current dimming point.
 - Electrical power requirement, DC input voltage, connector, and protection strategy.
 - Thermal/mechanical envelope, fan requirement, and acoustic target.
 - Exact local UI parameter set and whether the encoder needs supporting buttons.
@@ -63,9 +69,8 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Request manufacturer clarification/quotation for the 300 W- and 500 W-class
-bicolor matrices, specifically the active order code and safe continuous
-combined WW/CW operating envelope. In parallel, prepare the instruments and
-thermal fixture required by the defined bench characterization plan. Complete
-the temporal-modulation and camera-interaction theory before freezing the driver
-topology.
+While awaiting Yujileds clarification/quotation, prepare the bench instruments
+and oversized thermal fixture needed for endpoint characterization. In parallel,
+compare candidate high-power constant-current driver topologies against the
+33–41 V matrix range and the accepted temporal requirements, but do not freeze
+the driver until the safe simultaneous WW/CW envelope is confirmed.
