@@ -43,9 +43,20 @@ Recommended starting order:
 1. [`theory/radiometry-photometry.md`](theory/radiometry-photometry.md)
 2. [`theory/spectral-power-distribution.md`](theory/spectral-power-distribution.md)
 3. [`theory/color-science.md`](theory/color-science.md)
+4. [`theory/led-emission-behavior.md`](theory/led-emission-behavior.md)
 
 Additional theory chapters should be added only when they support a real design,
 measurement, or verification need.
+
+## Engineering studies
+
+Pre-decision engineering comparisons live under `studies/`. They may recommend
+a prototype direction, but they do not freeze hardware. Durable accepted choices
+still require an ADR.
+
+Current study:
+
+- [`studies/phase-1-light-engine.md`](studies/phase-1-light-engine.md)
 
 Accepted durable decisions belong in `adr/`. Current execution context belongs in
 `agent-handoff.md`. Temporary implementation plans do not override architecture,
