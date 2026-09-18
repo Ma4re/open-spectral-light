@@ -57,8 +57,9 @@ A single package contains warm and cool white channels behind one LES.
 
 **Weaknesses**
 
-- available high-fidelity products are generally below the optical power implied
-  by the current limit case;
+- mainstream general-lighting high-fidelity COBs are below the optical power
+  implied by the current limit case, although specialized film/studio matrices
+  now exist at much higher power;
 - two channels provide limited independent Duv/tint control;
 - the complete base design depends strongly on one package family;
 - adding correction channels around the COB creates a second emitting geometry.
@@ -89,9 +90,9 @@ axis and driven as matched warm/cool channel groups.
 - multiple COB tolerances must be characterized;
 - correction-channel placement must avoid spatial color separation.
 
-**Conclusion:** strongest near-term prototype direction if the 1200 lx target is
-kept. It allows real optical and thermal measurements before committing to a
-custom emitter board.
+**Conclusion:** useful fallback and quality-reference architecture, but no
+longer the preferred first high-power prototype because purpose-built bicolor
+film/studio matrices can provide a much more compact emitting geometry.
 
 ### C. Separate warm and cool high-fidelity COBs
 
@@ -170,7 +171,9 @@ The parts below are **research candidates**, not approved BOM items.
 
 | Family | Relevant published data | Why it matters | Current limitation |
 |---|---|---|---|
-| Bridgelux Vesta Thrive tunable white | 2700–6500 K variants; typical CRI 98; R1–R15 >90; TM-30 Rf 96/Rg 99; 18 mm Thrive array about 3528 lm and 32.2 W nominal | Strong documented color quality and integrated warm/cool mixing | One unit is far below the current upper-output requirement; multiple units would be needed |
+| Bridgelux Vesta Thrive tunable white | 2700–6500 K variants; typical CRI 98; 18 mm array about 32 W nominal per endpoint at nominal current | Strong documented color quality and integrated warm/cool mixing | One unit is far below the current upper-output requirement; a large cluster would increase emitting area |
+| Yujileds B3240003.26 bicolor matrix | 2700/6500 K; 4 A endpoint test; 10.8/13.8 klm; Ra >=95, R9 90, TM-30 Rf/Rg 92/100, TLCI 97; ~40 mm emitting region | Purpose-built high-power film/studio source in compact geometry | Combined continuous WW/CW power envelope and procurement must be confirmed |
+| Yujileds B3240005.26 bicolor matrix | 2700/6500 K; 8.4 A endpoint test; 20.0/25.6 klm; Ra >=95, R9 90, TM-30 Rf/Rg 92/100, TLCI 97 | Single-matrix candidate closest to the current high-output limit case | High thermal load; combined continuous WW/CW power envelope and procurement must be confirmed |
 | Bridgelux Vesta standard / SE high-output TW | 2700–6500 K; up to roughly 55 W nominal and 7.35 klm in current SE 29 mm family; CRI around 92 | Higher flux in an established tunable COB ecosystem | Color-quality target is weaker than Thrive |
 | Luminus Dynamic COB Gen 2 CTM-22 | 2700 K / 6500 K; CRI min 90; 36 W nominal per channel; about 6010/6480 lm at Tj=85 C at the endpoints | High output from a compact dual-channel COB | CRI 90 alone is not enough evidence for the desired camera/skin quality |
 | Nichia tunable-white COB | Current recommended/legacy tunable-white families exist around 10–42 W class | Strong manufacturer documentation and binning | Published tunable-white examples are CRI 90 / R9 50 class, below the desired fidelity direction |
@@ -201,23 +204,20 @@ power per COB may require clustering.
 
 ## 6. Recommended architecture direction for the first prototype
 
-The first prototype should **not** begin with a custom multi-channel MCPCB.
+The first prototype should **not** begin with a custom multi-channel MCPCB or a
+large many-COB cluster.
 
-The preferred experiment is:
+The current preferred experiment is a **purpose-built high-power bicolor
+film/studio matrix**, with the Yujileds 300 W- and 500 W-class modules as primary
+research candidates. Bridgelux Thrive remains the quality/fallback reference.
 
-1. prototype a **symmetric cluster of documented tunable-white COBs**;
-2. electrically expose warm and cool as two independently controlled constant-
-   current channel groups;
-3. thermally mount the emitters to a common heat spreader/heatsink;
-4. leave electrical/control expansion capacity for auxiliary spectral channels;
-5. characterize output with the 90 cm normal modifier and 120 cm limit modifier;
-6. measure SPD/CCT/Duv at multiple output levels and thermal states;
-7. use those measurements to decide whether the final light engine remains a
-   COB cluster or moves to a custom interleaved multi-channel board.
+The detailed power comparison and the unresolved combined-channel limits are
+documented in
+[`phase-1-power-envelope.md`](phase-1-power-envelope.md).
 
-This is a prototype direction, not an ADR. It minimizes unknowns while testing
-the hardest requirement: whether the desired output and color quality can be
-reached without producing an impractical thermal/acoustic system.
+This is a prototype direction, not an ADR. The high-power matrix must still pass
+procurement, optical, spectral, thermal, and acoustic validation before any part
+number is frozen.
 
 ## 7. What should be reserved for premium capability
 
@@ -243,16 +243,18 @@ headroom**, not by intentionally weakening the base light.
 
 Before selecting a PCB or power connector, the next emitter work should answer:
 
-1. How many high-fidelity tunable-white COBs are required to reach the 90 cm
-   normal modifier target and approach the 120 cm / 2 m limit target?
-2. What is the real output penalty of the selected diffusion layers and grid?
-3. How much does output change across 2700, ~4300, and 6500 K?
-4. What Duv path results from warm/cool mixing?
-5. How much color/output drift occurs from cold start to thermal equilibrium?
-6. What total electrical power and heatsink dissipation result?
-7. Does the effective emitting area remain acceptable with Bowens softboxes and
-   other likely modifiers?
-8. What auxiliary-channel authority would be needed for useful tint/Duv
+1. Can the 300 W-class high-power matrix satisfy the normal 90 cm modifier
+   scenario with useful margin?
+2. Is the 500 W-class matrix actually required to approach 1200 lx at 2 m with
+   the 120 cm limit modifier and grid?
+3. What is the real output penalty of the selected diffusion layers and grid?
+4. How much does output change across 2700, ~4300, and 6500 K?
+5. What Duv path results from warm/cool mixing?
+6. How much color/output drift occurs from cold start to thermal equilibrium?
+7. What safe continuous combined WW/CW current envelope does the matrix
+   manufacturer authorize?
+8. What total electrical power, heatsink dissipation, and fan airflow result?
+9. What auxiliary-channel authority would be needed for useful tint/Duv
    correction?
 
 Those measurements determine the driver and thermal architecture more reliably
@@ -276,3 +278,5 @@ than nominal LED wattage.
    https://led-ld.nichia.co.jp/en/product/lighting_optisolis.html
 8. U.S. Department of Energy, **Understanding LED Color-Tunable Products**.
    https://www.energy.gov/cmei/ssl/understanding-led-color-tunable-products
+9. Yujileds, **LED Matrix Solution Introduction & Datasheet, V1.5**.
+   https://www.yujiintl.com/wp-content/uploads/2022/09/Yujileds-LED-Matrix-Solution-V1.5.pdf
