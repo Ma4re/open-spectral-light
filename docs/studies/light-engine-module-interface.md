@@ -209,32 +209,48 @@ module where possible.
 
 ## 7. Base high-power electrical interface
 
-Phase 1 requires a two-white-channel base profile, provisionally named
+Phase 1 requires a two-white-role base profile, provisionally named
 **LEM-TW2**.
 
-LEM-TW2 exposes two independently controllable LED loads:
+LEM-TW2 exposes two logical light roles:
 
-- Channel 0 — warm-white role;
-- Channel 1 — cool-white role.
+- Role 0 — warm white;
+- Role 1 — cool white.
 
-Each channel is logically a two-terminal constant-current load.
+A logical role is **not required to be one raw two-terminal LED load**. A LEM may
+contain several independently regulated physical branches when that is required
+for safe current sharing.
 
-The external interface shall not require the controller to know how many COBs,
-series strings, parallel branches, or current-sharing elements exist inside the
-LEM.
+The Controller Module operates only on the two logical roles. The Power Stage
+Module and LEM electrical profile own the physical branch count.
+
+Prototype A establishes a first practical example:
+
+- four independently regulated WW branches;
+- four independently regulated CW branches;
+- approximately 31–42 V per COB branch;
+- up to approximately 2.11 A normal prototype current per branch;
+- 300 W total LEM operating ceiling.
+
+These are prototype values, not yet frozen interface limits.
 
 The eventual LEM-TW2 electrical profile must define:
 
-- allowable forward-voltage range per channel;
-- continuous current range per channel;
+- logical light roles;
+- physical branch count supported by the profile;
+- allowable forward-voltage range per branch;
+- continuous current range per branch;
 - maximum module continuous power;
+- aggregate role and module power limits;
 - transient limits;
 - polarity;
 - connector current/voltage rating;
 - insulation/clearance requirements;
-- whether channel returns are isolated or may be common.
+- whether branch returns are isolated or may be common.
 
-Those values remain OPEN until the prototype bank is dimensioned.
+The controller shall not need to know the vendor-specific COB part number or
+string arrangement. It requests logical role output/current; the PSM maps that
+request onto the physical branch implementation.
 
 The first PSM should be designed around a **declared compatibility envelope**,
 not around one Bridgelux part number.
@@ -255,10 +271,15 @@ future physical connector combines them.
 
 ### 8.1 Mandatory primary temperature path
 
-The primary thermal-protection signal should be a simple local sensor physically
+The primary thermal-protection signal should use simple local sensors physically
 coupled to the light engine, preferably passive/analog for fail-safe behavior.
 
-Its exact NTC/PTC characteristic is not yet frozen.
+For a two-bank LEM-TW2 implementation, Prototype A establishes a strong
+candidate requirement for at least one representative thermal path per bank
+(TEMP_WW and TEMP_CW), because endpoint operation can heat one bank much more
+than the other.
+
+The exact NTC/PTC characteristic is not yet frozen.
 
 The final interface shall define open-circuit and short-circuit behavior as
 faults.
@@ -422,17 +443,21 @@ an ADR/interface specification.
 
 ## 14. Immediate next step
 
-Dimension the split-white Thrive prototype sufficiently to determine:
+Prototype A is now dimensioned at 4 WW + 4 CW COBs with a 300 W target ceiling,
+approximately 31–42 V branch compliance, approximately 2.11 A normal maximum
+branch current, and an approximately 110 mm raw source envelope.
 
-- COB count;
-- series/parallel arrangement;
-- per-channel voltage/current;
-- maximum expected module power;
-- physical source envelope;
-- thermal contact-area requirement.
+The next work is to turn those values into a benchable hardware boundary:
 
-Those measurements/calculations provide the missing values needed to turn this
-study into the first versioned LEM-TW2 interface specification.
+- compare physical PSM branch-regulator implementations;
+- select the first non-production high-power connector/harness strategy;
+- model the 120–130 mm carrier/thermal plane;
+- prototype the local mixing aperture/chamber;
+- select the analog bank-temperature sensor characteristic;
+- select the first simple nonvolatile descriptor-memory implementation.
+
+Only after those checks should LEM-TW2 v1 dimensions and connector pinouts move
+into an ADR/interface specification.
 
 ## References
 
