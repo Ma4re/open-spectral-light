@@ -27,7 +27,12 @@ now dimensioned as 4 x 2700 K + 4 x 6500 K V18 Thrive COBs in an alternating
 octagonal ring, with an approximately 300 W total target ceiling, approximately
 2.11 A normal maximum per active branch, and an approximately 110 mm raw source
 envelope. The Bridgelux parts are prototype references rather than frozen vendor
-dependencies. No driver part number or production hardware is frozen.
+dependencies. Power-stage comparison now prefers eight independent buck
+constant-current branches from a nominal 48 V bus, with TI LM3409HV as the
+baseline branch-controller candidate and synchronized controllers retained as
+alternatives if EMI/temporal testing requires them. A ~400 W external source
+class is the current full-output target. Neither 48 V nor the driver IC is yet a
+frozen hardware contract.
 
 ## Active Goal
 
@@ -59,8 +64,8 @@ connector, or sensor parts.
 - Whether the 1200 lx at 2 m limit target remains practical after real modifier, thermal, acoustic, and cost validation.
 - Final CCT range after emitter/channel trade-off analysis; 2700–6500 K is the current target.
 - Final qualification of the Prototype A 4+4 layout, mixing geometry, and future tint/spectral-expansion path.
-- Driver power-stage/current-regulation topology and the minimum continuous-current dimming point.
-- Electrical power requirement, DC input voltage, connector, and protection strategy.
+- Validation of the preferred eight-branch buck PSM and the minimum continuous-current dimming point.
+- Final 48 V input tolerance, connector, and protection strategy.
 - Thermal/mechanical envelope, fan requirement, and acoustic target.
 - Exact local UI parameter set and whether the encoder needs supporting buttons.
 - Controller MCU.
@@ -79,8 +84,8 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Turn Prototype A into a benchable module boundary: compare the eight-branch
-constant-current PSM implementation options, model the 120–130 mm carrier and
-thermal plane, and prototype a local mixing structure that presents an output
-aperture compatible with Bowens modifiers. Do not freeze connector pinouts or
-LEM-TW2 v1 dimensions until those three checks are complete.
+Design and simulate one representative 48 V -> 31–42 V / ~2.11 A constant-
+current buck branch around the LM3409HV baseline. Establish switching frequency,
+inductor/ripple target, sense resistor, PFET/diode stress, analog-dimming mapping,
+dropout margin, and expected efficiency before replicating the branch eight
+times. Continue the carrier thermal model and local mixing study in parallel.
