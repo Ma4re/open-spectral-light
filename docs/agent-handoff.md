@@ -22,9 +22,12 @@ out-of-envelope engine may replace the power-stage module with it without
 redesigning the controller. A reproducible bench characterization plan and temporal driver requirements are
 now defined. The preferred temporal strategy is concurrent WW/CW current control
 with continuous-current dimming across the principal video range and validated
-synchronized PWM/hybrid control only if needed for deep dimming. No emitter or
-driver part number is frozen and no production firmware or hardware design is
-implemented.
+synchronized PWM/hybrid control only if needed for deep dimming. Prototype A is
+now dimensioned as 4 x 2700 K + 4 x 6500 K V18 Thrive COBs in an alternating
+octagonal ring, with an approximately 300 W total target ceiling, approximately
+2.11 A normal maximum per active branch, and an approximately 110 mm raw source
+envelope. The Bridgelux parts are prototype references rather than frozen vendor
+dependencies. No driver part number or production hardware is frozen.
 
 ## Active Goal
 
@@ -55,7 +58,7 @@ connector, or sensor parts.
 
 - Whether the 1200 lx at 2 m limit target remains practical after real modifier, thermal, acoustic, and cost validation.
 - Final CCT range after emitter/channel trade-off analysis; 2700–6500 K is the current target.
-- Exact distributor-backed emitter count/layout and future tint/spectral-expansion path.
+- Final qualification of the Prototype A 4+4 layout, mixing geometry, and future tint/spectral-expansion path.
 - Driver power-stage/current-regulation topology and the minimum continuous-current dimming point.
 - Electrical power requirement, DC input voltage, connector, and protection strategy.
 - Thermal/mechanical envelope, fan requirement, and acoustic target.
@@ -76,8 +79,8 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Dimension a distributor-backed ~250–350 W split-white prototype using standard
-warm/cool COBs. Use that result to establish the first numerical LEM-TW2
-voltage/current/power envelope, source envelope, thermal-plane requirement, and
-mounting geometry. Then compare it against an integrated Vesta reference before
-freezing connectors or driver topology.
+Turn Prototype A into a benchable module boundary: compare the eight-branch
+constant-current PSM implementation options, model the 120–130 mm carrier and
+thermal plane, and prototype a local mixing structure that presents an output
+aperture compatible with Bowens modifiers. Do not freeze connector pinouts or
+LEM-TW2 v1 dimensions until those three checks are complete.
