@@ -52,8 +52,15 @@ practical output range as the emitter and driver permit while maintaining:
 - acceptable spectral/chromaticity behavior;
 - useful control resolution.
 
-The minimum continuous-current level is OPEN until the selected matrix is
-characterized.
+The minimum continuous-current level is OPEN until the selected emitter/branch
+is characterized.
+
+For the current Prototype A 56 uH LM3409HV sizing, the first-order CCM/DCM
+boundary is around **0.175 A per branch**, roughly **8 % of the 2.11 A maximum
+branch current**. The controller's advertised 250:1 analog-dimming capability
+must therefore not be interpreted as 250:1 linear camera-grade CCM dimming for
+this specific branch. DCM behavior below that region still requires simulation
+and optical validation.
 
 ### Deep dimming
 
