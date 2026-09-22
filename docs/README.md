@@ -65,6 +65,7 @@ Current studies:
 - [`studies/phase-1-temporal-driver-requirements.md`](studies/phase-1-temporal-driver-requirements.md)
 - [`studies/light-engine-module-interface.md`](studies/light-engine-module-interface.md)
 - [`studies/prototype-a-thrive-light-engine.md`](studies/prototype-a-thrive-light-engine.md)
+- [`studies/phase-1-power-stage-architecture.md`](studies/phase-1-power-stage-architecture.md)
 
 Accepted durable decisions belong in `adr/`. Current execution context belongs in
 `agent-handoff.md`. Temporary implementation plans do not override architecture,
