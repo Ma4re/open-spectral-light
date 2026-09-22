@@ -89,10 +89,13 @@ The Thrive cluster remains valuable as:
 
 It is no longer the preferred first high-power prototype architecture.
 
-## 4. Purpose-built high-power tunable-white matrices
+## 4. Archived benchmark: purpose-built high-power tunable-white matrices
 
 Yujileds publishes bicolor LED Matrix modules specifically targeted at
-photographic, film, studio, stage, and entertainment lighting.
+photographic, film, studio, stage, and entertainment lighting. These parts are
+retained here only as an optical/power-density benchmark. They are no longer a
+primary procurement path because the project does not want the base light engine
+to depend on direct manufacturer response.
 
 ### 4.1 300 W-class matrix
 
@@ -231,29 +234,30 @@ Thermal characterization must determine:
 
 ## 7. Revised prototype direction
 
-The first high-power optical prototype should **not** start by assembling a
-12–18 COB cluster.
+The first optical prototype should use **standard distributor-backed COBs**.
 
 The preferred sequence is now:
 
-1. verify price, availability, current datasheet revision, and supplier support
-   for the Yujileds 300 W- and 500 W-class bicolor matrices;
-2. obtain an explicit manufacturer answer for the safe continuous combined WW/CW
-   current/power envelope;
-3. bench the smaller practical matrix first if procurement permits, using a
-   laboratory constant-current setup and oversized thermal solution;
-4. measure bare-source and modifier output at 2700 K, approximately 4300 K, and
+1. construct a ~250–350 W-class bench light engine using interleaved warm/cool
+   standard COB banks;
+2. prioritize Bridgelux Thrive single-CCT parts for the high-fidelity split-white
+   prototype;
+3. build or model an equivalent integrated Bridgelux Vesta tunable-white
+   reference for comparison;
+4. use an oversized common heat spreader and a deliberately replaceable emitter
+   carrier;
+5. measure bare-source and modifier output at 2700 K, approximately 4300 K, and
    6500 K;
-5. repeat with the 90 cm normal modifier and the 120 cm limit modifier, with and
+6. repeat with the 90 cm normal modifier and 120 cm limit modifier, with and
    without grid;
-6. measure SPD, CCT, Duv, output, and temperature from cold start to thermal
-   equilibrium;
-7. determine whether the 300 W-class engine already covers the real use case or
-   whether the 500 W-class engine is justified;
-8. retain the Bridgelux Thrive cluster as the quality/fallback reference.
+7. measure SPD, CCT, Duv, spatial color uniformity, output, and temperature from
+   cold start to equilibrium;
+8. revisit the 1200 lx limit target if reaching it requires an emitter count,
+   source area, or cooling system that is inconsistent with the product goals.
 
-This sequence directly tests whether the 1200 lx limit target justifies the
-thermal and acoustic cost of a larger light engine.
+The key experiment is now whether a supplier-independent split-white engine can
+deliver enough output and sufficiently uniform color for a softbox-first Bowens
+light.
 
 ## 8. Decision gate
 
