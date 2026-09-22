@@ -15,7 +15,11 @@ high-power matrices are no longer a primary path because procurement and support
 depend on direct manufacturer response. The preferred prototype direction is now
 a distributor-backed modular light engine using standard warm/cool COB banks,
 with Bridgelux Thrive split-white as the high-fidelity research direction and
-Bridgelux Vesta tunable-white as an integrated-mixing reference. A reproducible bench characterization plan and temporal driver requirements are
+Bridgelux Vesta tunable-white as an integrated-mixing reference. The light
+engine is now explicitly a replaceable module: compatible emitter changes stay
+behind stable mechanical/thermal/optical/power/identity interfaces, and a future
+out-of-envelope engine may replace the power-stage module with it without
+redesigning the controller. A reproducible bench characterization plan and temporal driver requirements are
 now defined. The preferred temporal strategy is concurrent WW/CW current control
 with continuous-current dimming across the principal video range and validated
 synchronized PWM/hybrid control only if needed for deep dimming. No emitter or
@@ -41,6 +45,8 @@ connector, or sensor parts.
 - Any PWM/hybrid dimming region must be optically measured and camera-validated; PWM frequency alone is not proof of camera compatibility.
 - The primary emitter path must be prototype-purchasable through authorized distribution without depending on manufacturer sales response.
 - Direct-vendor-only custom LED matrices may be benchmarks but not the sole base light-engine source.
+- The light engine is service-replaceable behind a stable module interface; Phase 1 does not require hot-swap.
+- Compatible LEM replacements must not require controller/UI redesign; an out-of-envelope LEM may be paired with a replacement power-stage module.
 - Module names describe responsibilities rather than chosen part numbers.
 - KISS/YAGNI and host-testable portable logic are project-wide rules.
 - Theory documents explain scientific principles and design implications; they do not freeze implementation choices.
@@ -71,7 +77,7 @@ because no hardware revision has been designed or built.
 ## Next Exact Step
 
 Dimension a distributor-backed ~250–350 W split-white prototype using standard
-warm/cool COBs, then compare its source area, current requirements, expected
-flux, and mixing geometry against an integrated Vesta reference. Prepare the
-oversized thermal bench fixture in parallel. Do not freeze the driver until the
-selected emitter bank voltage/current envelope is established.
+warm/cool COBs. Use that result to establish the first numerical LEM-TW2
+voltage/current/power envelope, source envelope, thermal-plane requirement, and
+mounting geometry. Then compare it against an integrated Vesta reference before
+freezing connectors or driver topology.
