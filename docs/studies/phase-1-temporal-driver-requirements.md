@@ -137,18 +137,27 @@ temporal limit, but those points are not yet guaranteed product requirements.
 These requirements favor a topology with true regulated current control rather
 than a design whose only brightness mechanism is low-frequency PWM.
 
-They do **not** yet decide between buck, boost, buck-boost, multiphase, or other
-power stages.
+Prototype A power-stage work now prefers **independent buck regulation per COB
+branch from a nominal 48 V bus** because the branch voltage remains below the
+bus and independent regulation avoids parallel-LED current-sharing problems.
 
-The eventual topology depends on:
+This remains a prototype architecture rather than a frozen driver implementation.
+The baseline branch-controller candidate is TI LM3409HV because its 75 V input
+range, high-side current sense, 250:1 analog dimming, and published 48 V -> 42 V
+reference design align closely with the current envelope.
 
-- confirmed Yujileds WW/CW operating envelope;
-- selected external DC bus;
-- matrix forward-voltage range;
-- maximum per-channel current;
-- desired current-resolution/dimming range;
-- efficiency and thermal target;
-- EMI and acoustic behavior.
+A synchronized fixed-frequency alternative such as TPS92691 remains relevant if
+bench testing shows that unsynchronized multi-branch switching creates
+unacceptable EMI or optical beat behavior.
+
+The final implementation still depends on:
+
+- measured branch voltage/current behavior;
+- low-current spectral behavior;
+- minimum useful analog-current point;
+- branch efficiency and thermal loss;
+- EMI/temporal measurements;
+- final external-DC input and protection envelope.
 
 ## 9. Decision gate
 
