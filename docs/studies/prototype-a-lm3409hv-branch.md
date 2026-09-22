@@ -432,8 +432,28 @@ Kelvin sensing around RSNS.
 
 TI publishes both TINA-TI and PSpice transient models for the LM3409 family.
 
-This study has completed the analytical/ideal switched-converter sizing pass.
-It has **not yet claimed a vendor-macro-model transient simulation result**.
+This study has completed the analytical sizing pass and an **idealized
+constant-off-time switched-current model**. The ideal model is useful for
+checking conduction-mode transitions but does not model LM3409HV internal
+delays, PFET/diode parasitics, gate drive, switching loss, or control-device
+nonidealities.
+
+At the nominal 56 uH / 0.105 Ohm branch, the idealized model confirms:
+
+- ~2.11 A average current at ~1.20 V IADJ in CCM;
+- the CCM/DCM boundary occurs near ~0.175 A average LED current;
+- IADJ-to-average-current transfer becomes strongly nonlinear once DCM begins;
+- analog control can continue below the CCM boundary, but its usable
+  camera-grade range cannot be inferred from the advertised 250:1 ratio.
+
+The model is deliberately **not** used as a switching-frequency validation,
+because a lossless buck slope model does not reproduce the empirical efficiency
+factor used by TI's constant-off-time design equations.
+
+A compatible TI TINA-TI/PSpice execution engine is not available in the current
+project execution environment, so this study does **not** claim a
+vendor-macro-model transient result.
+
 
 The next simulation shall instantiate the TI model and the selected branch
 candidates to verify at minimum:
