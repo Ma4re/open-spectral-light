@@ -102,11 +102,15 @@ around slow-motion production.
 | PWR-002 | FROZEN | The lighting head shall accept a defined external DC input. |
 | PWR-003 | TARGET | The external-DC architecture should allow operation from either an AC/DC supply or a compatible battery solution without changing the lighting head. |
 | PWR-004 | FROZEN | An external source is compatible only when it satisfies the defined voltage, current capability, polarity, protection, and connector requirements; arbitrary power sources shall not be assumed safe or compatible. |
-| PWR-005 | OPEN | DC input voltage, maximum current, connector, polarity convention, and protection strategy remain to be selected from the final power requirement. |
+| PWR-005 | TARGET | A **48 V nominal external DC bus** is the preferred Phase 1 power class for Prototype A; the final accepted input range remains OPEN until dropout, protection, cable-drop, and thermal validation are complete. |
+| PWR-006 | TARGET | A full-output external source in approximately the **400 W / 8.3 A class at 48 V** should provide practical margin for a ~300 W LEM plus driver, cooling, controller, and auxiliary loads. Final source rating remains OPEN. |
+| PWR-007 | FROZEN | Battery compatibility does not imply direct connection of an arbitrary raw battery stack. A battery source must remain inside the accepted head input envelope or use an external regulator/adapter. |
+| PWR-008 | OPEN | Input connector, polarity convention, fuse/eFuse strategy, reverse-polarity protection, transient suppression, inrush control, and final undervoltage/overvoltage thresholds remain to be selected. |
 
-A DC-005/barrel-style connector is therefore **not frozen**. The connector must
-be chosen after maximum voltage/current and mechanical requirements are known;
-the preferred architecture is external DC power, not a particular connector.
+A DC-005/barrel-style connector is therefore **not frozen**. The likely current
+class is already too high to assume a small barrel connector is appropriate.
+The connector must be chosen from the final voltage/current, locking, service,
+and mechanical requirements.
 
 ## 8. Thermal and acoustic requirements
 
@@ -269,9 +273,9 @@ The next work should resolve these questions in roughly this order:
 1. Is **1200 lx at 2 m through the limit modifier** achievable at a sensible electrical/thermal cost, or does the modifier/output trade-off need adjustment?
 2. Is 2700–6500 K the best useful range after emitter-efficiency and color-quality trade-offs are considered?
 3. What emitter/channel architecture provides high-quality tunable white while preserving a path to tint/spectral expansion?
-4. What current-regulation/power-stage topology best implements the accepted temporal requirements over the required WW/CW current range?
-5. What electrical power follows from the 1200 lx limit-case target?
-6. What external DC voltage and connector are appropriate at that power level?
+4. Does the preferred eight-branch 48 V buck PSM meet dropout, efficiency, EMI, temporal-modulation, and thermal requirements in a real branch prototype?
+5. Does the ~300 W Prototype A LEM actually satisfy the 1200 lx limit-case target through the reference modifier?
+6. What final input connector and protection strategy are appropriate for the validated 48 V/current envelope?
 7. What thermal architecture and acoustic target follow from sustained power dissipation?
 8. Which local parameters actually exist in Phase 1, and does the encoder require supporting buttons?
 
