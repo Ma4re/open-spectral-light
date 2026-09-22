@@ -390,7 +390,14 @@ TI's 48 V -> 42 V / 1.5 A evaluation design uses 33 uH at its own operating
 point, confirming that practical inductance is strongly dependent on selected
 ripple, voltage ratio, and current.
 
-No inductor value is frozen yet.
+A first branch-sizing pass now prefers **56 uH** as the bench baseline,
+producing about 0.35 A p-p (~16.5 %) ripple at the nominal 48 V -> 35.5 V /
+2.11 A point. The example Bourns SRR1280-560M is suitable for initial
+characterization but has limited saturation margin at its -20 % inductance
+tolerance and is not frozen for production.
+
+Detailed branch sizing is documented in
+[`prototype-a-lm3409hv-branch.md`](prototype-a-lm3409hv-branch.md).
 
 The camera requirement is based on measured optical modulation, not on an
 arbitrary electrical ripple percentage.
@@ -513,23 +520,23 @@ Before 48 V becomes FROZEN, the project should verify:
 
 ## 16. Immediate next step
 
-Design and simulate **one representative 48 V -> 31–42 V / 2.11 A buck branch**
-around the LM3409HV baseline.
+The analytical branch-sizing pass is complete. The preferred first simulation
+baseline is:
 
-That branch study should determine:
+- LM3409HV;
+- 48 V nominal input;
+- 470 pF COFF / 31.6 kOhm ROFF;
+- 56 uH branch inductance;
+- ~0.105 Ohm current sense;
+- ~1.20 V full-scale IADJ;
+- ~2.11 A normal maximum branch current;
+- ~46.5 V rising / ~44.5 V falling candidate UVLO window;
+- 100 V PFET and Schottky candidates with moderate PFET gate charge.
 
-- switching-frequency target;
-- current-ripple target;
-- inductor value/current rating;
-- PFET and diode stress/loss;
-- sense-resistor value/power;
-- analog-IADJ mapping;
-- UVLO/dropout behavior;
-- expected efficiency;
-- thermal loss per branch;
-- measurable test points.
-
-Only after one branch is credible should it be replicated eight times.
+The next exact step is a **vendor-macro-model transient simulation** using TI's
+published TINA-TI/PSpice model. Validate nominal operation, LED-voltage corners,
+IADJ dimming into DCM, UVLO/dropout, startup, faults, and component tolerance
+before replicating the branch eight times.
 
 ## References
 
