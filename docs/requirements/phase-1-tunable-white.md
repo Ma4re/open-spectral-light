@@ -160,7 +160,11 @@ allowing height and tilt adjustment independently of the Bowens modifier mount.
 | SUP-002 | FROZEN | Primary emitters shall have public datasheets, identifiable lifecycle status, and an authorized-distributor procurement path. |
 | SUP-003 | TARGET | Prefer emitter families supported by two or more major authorized distributors or by a replaceable light-engine module that can accept an alternate qualified family. |
 | SUP-004 | FROZEN | A direct-vendor-only custom LED matrix may be used as a benchmark or optional experiment, but shall not be the only viable base light-engine source. |
-| SUP-005 | TARGET | The emitter carrier, thermal interface, and driver boundary should minimize the amount of product redesign required when qualifying a replacement emitter family. |
+| SUP-005 | FROZEN | The light engine shall be a replaceable module whose vendor-specific emitter geometry is isolated behind stable mechanical, thermal, optical, power, and identification/sensing interfaces. |
+| SUP-006 | FROZEN | Replacing a compatible two-channel light engine within the accepted electrical envelope shall not require redesign of the controller, user interface, or product-level firmware behavior. |
+| SUP-007 | FROZEN | If a future light engine exceeds the existing power-stage voltage/current/channel envelope, the power-stage module may be replaced together with the light engine while preserving the controller boundary. |
+| SUP-008 | TARGET | The replaceable light engine should carry its own module identity and calibration data so replacement does not require hard-coded vendor-specific controller firmware. |
+| SUP-009 | FROZEN | Phase 1 light-engine replacement is a powered-off service operation; hot-swap support is not required. |
 
 Supply-chain independence is part of product maintainability. Optical performance
 still governs acceptance, but a technically excellent emitter that cannot be
