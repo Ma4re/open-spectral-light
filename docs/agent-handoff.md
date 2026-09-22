@@ -10,13 +10,12 @@ colorimetry, LED emission behavior, temporal light modulation, and camera
 interaction. Phase 1 product requirements define the
 tunable-white key/fill-light use case and an upper engineering target of 1200 lx
 at 2 m through the large reference-modifier scenario. Power-envelope work
-confirms that this limit case is a several-hundred-watt-class problem. The
-preferred high-power prototype direction is now a purpose-built bicolor
-film/studio LED matrix, with 300 W- and 500 W-class Yujileds modules as research
-candidates; a Bridgelux Thrive cluster remains a quality/fallback reference.
-Public Yujileds pages confirm both matrix families remain listed, but pricing is
-quote-based and the current web pages disagree with datasheet V1.5 on the
-B322/B324 part-number prefix. A reproducible bench characterization plan and temporal driver requirements are
+confirms that this limit case is a several-hundred-watt-class problem. Yujileds
+high-power matrices are no longer a primary path because procurement and support
+depend on direct manufacturer response. The preferred prototype direction is now
+a distributor-backed modular light engine using standard warm/cool COB banks,
+with Bridgelux Thrive split-white as the high-fidelity research direction and
+Bridgelux Vesta tunable-white as an integrated-mixing reference. A reproducible bench characterization plan and temporal driver requirements are
 now defined. The preferred temporal strategy is concurrent WW/CW current control
 with continuous-current dimming across the principal video range and validated
 synchronized PWM/hybrid control only if needed for deep dimming. No emitter or
@@ -40,6 +39,8 @@ connector, or sensor parts.
 - Normal-speed video compatibility through 60 fps is required using the 24/25/30/50/60 fps 180-degree-equivalent shutter baseline; faster shutters are characterization points.
 - Normal CCT control shall use concurrent spectral mixing rather than alternating WW/CW time-division as the default mechanism.
 - Any PWM/hybrid dimming region must be optically measured and camera-validated; PWM frequency alone is not proof of camera compatibility.
+- The primary emitter path must be prototype-purchasable through authorized distribution without depending on manufacturer sales response.
+- Direct-vendor-only custom LED matrices may be benchmarks but not the sole base light-engine source.
 - Module names describe responsibilities rather than chosen part numbers.
 - KISS/YAGNI and host-testable portable logic are project-wide rules.
 - Theory documents explain scientific principles and design implications; they do not freeze implementation choices.
@@ -48,7 +49,7 @@ connector, or sensor parts.
 
 - Whether the 1200 lx at 2 m limit target remains practical after real modifier, thermal, acoustic, and cost validation.
 - Final CCT range after emitter/channel trade-off analysis; 2700–6500 K is the current target.
-- Emitter/channel architecture and future tint/spectral-expansion path.
+- Exact distributor-backed emitter count/layout and future tint/spectral-expansion path.
 - Driver power-stage/current-regulation topology and the minimum continuous-current dimming point.
 - Electrical power requirement, DC input voltage, connector, and protection strategy.
 - Thermal/mechanical envelope, fan requirement, and acoustic target.
@@ -69,8 +70,8 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-While awaiting Yujileds clarification/quotation, prepare the bench instruments
-and oversized thermal fixture needed for endpoint characterization. In parallel,
-compare candidate high-power constant-current driver topologies against the
-33–41 V matrix range and the accepted temporal requirements, but do not freeze
-the driver until the safe simultaneous WW/CW envelope is confirmed.
+Dimension a distributor-backed ~250–350 W split-white prototype using standard
+warm/cool COBs, then compare its source area, current requirements, expected
+flux, and mixing geometry against an integrated Vesta reference. Prepare the
+oversized thermal bench fixture in parallel. Do not freeze the driver until the
+selected emitter bank voltage/current envelope is established.
