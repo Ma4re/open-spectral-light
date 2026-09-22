@@ -152,9 +152,24 @@ allowing height and tilt adjustment independently of the Bowens modifier mount.
 | CST-003 | FROZEN | The architecture shall permit a lower-cost useful base configuration and incremental capability upgrades where technically sensible. |
 | CST-004 | FROZEN | Optional premium modules shall not be required for safe basic light operation. |
 
-## 12. Reference exposure model and validation scenarios
+## 12. Supply-chain and serviceability requirements
 
-### 12.1 Exposure basis
+| ID | State | Requirement |
+|---|---|---|
+| SUP-001 | FROZEN | The primary Phase 1 emitter path shall not require direct manufacturer sales or engineering response in order to purchase prototype quantities. |
+| SUP-002 | FROZEN | Primary emitters shall have public datasheets, identifiable lifecycle status, and an authorized-distributor procurement path. |
+| SUP-003 | TARGET | Prefer emitter families supported by two or more major authorized distributors or by a replaceable light-engine module that can accept an alternate qualified family. |
+| SUP-004 | FROZEN | A direct-vendor-only custom LED matrix may be used as a benchmark or optional experiment, but shall not be the only viable base light-engine source. |
+| SUP-005 | TARGET | The emitter carrier, thermal interface, and driver boundary should minimize the amount of product redesign required when qualifying a replacement emitter family. |
+
+Supply-chain independence is part of product maintainability. Optical performance
+still governs acceptance, but a technically excellent emitter that cannot be
+ordered or supported predictably is not a suitable sole foundation for the
+base product.
+
+## 13. Reference exposure model and validation scenarios
+
+### 13.1 Exposure basis
 
 For the first illuminance target, use the incident-light exposure relationship
 
@@ -231,7 +246,7 @@ therefore includes both photometric measurement and real camera tests.
 - thermal equilibrium reached;
 - no unsafe temperature, uncontrolled output drift, or unacceptable acoustic behavior.
 
-### 12.2 Reference-method notes
+### 13.2 Reference-method notes
 
 A 90 cm circular Bowens softbox and larger 120 cm parabolic softboxes are common
 real-world modifier classes. Commercial examples also use inner/front diffusion
@@ -243,7 +258,7 @@ depths, reflective interiors, inner baffles, and grids have different optical
 losses. The actual Phase 1 acceptance test must use one documented physical
 modifier so later measurements are repeatable.
 
-## 13. Open engineering questions
+## 14. Open engineering questions
 
 The next work should resolve these questions in roughly this order:
 
@@ -259,7 +274,7 @@ The next work should resolve these questions in roughly this order:
 These questions must be answered before individual LED, driver, connector, fan,
 or MCU part numbers are frozen.
 
-## 14. References for the exposure baseline
+## 15. References for the exposure baseline
 
 1. ISO, **ISO 2720:1974 — Photography — General purpose photographic exposure
    meters (photoelectric type) — Guide to product specification**. The standard
