@@ -2,9 +2,11 @@
 
 ## 1. Purpose
 
-This plan defines the first reproducible bench characterization of a high-power
-tunable-white light engine before the LED matrix, driver topology, thermal
-solution, DC input, or 1200 lx limit target is frozen.
+This plan defines the first reproducible bench characterization of the modular
+high-power tunable-white light engine before the driver topology, final thermal
+solution, DC input, or 1200 lx limit target is frozen. Prototype A is the current
+reference implementation: 4 warm-white + 4 cool-white Bridgelux V18 Thrive COBs
+with a 300 W total-module target ceiling.
 
 The test answers four engineering questions:
 
@@ -12,8 +14,8 @@ The test answers four engineering questions:
    modifiers?
 2. How do output, CCT, Duv, and spectrum change with current and temperature?
 3. What electrical and thermal load must the final head handle?
-4. Is a 300 W-class matrix sufficient, or is the larger 500 W-class matrix
-   justified?
+4. Is the approximately 300 W Prototype A envelope sufficient, or does the
+   output requirement justify a larger LEM or a revised optical target?
 
 This is a characterization plan, not a compliance-certification procedure.
 
@@ -38,22 +40,28 @@ specifications and calibration therefore matter.
 
 ### Electrical
 
-The bench shall provide two independently controllable constant-current channels
-for WW and CW with:
+Prototype A uses eight physical constant-current branches grouped into two
+logical roles:
 
-- compliance voltage above the candidate matrix maximum forward voltage;
-- current limit set independently for each channel;
-- measured channel voltage and current;
+- 4 WW branches;
+- 4 CW branches.
+
+The bench shall provide independently current-limited branches or an equivalent
+safe test arrangement with:
+
+- compliance voltage of at least the Prototype A branch requirement;
+- current limit set per physical branch;
+- measured branch voltage and current;
+- aggregate WW/CW and total power calculation;
 - emergency output disable;
 - no requirement for the final production driver topology.
 
-For the 300 W-class candidate, endpoint rated-current characterization requires
-up to 4.0 A per active channel. For the 500 W-class candidate it requires up to
-8.4 A per active channel.
+The normal Prototype A characterization range is up to approximately 2.11 A per
+active branch, with 2.34 A treated as the COB component maximum rather than the
+normal operating target.
 
-Mixed-channel high-power testing above conservative exploratory levels is
-blocked until the manufacturer confirms the continuous simultaneous WW+CW
-envelope.
+The total module target ceiling is approximately 300 W. Mixed WW/CW tests must
+respect both the per-branch current limits and the aggregate module-power limit.
 
 ### Thermal
 
@@ -63,7 +71,7 @@ so emitter behavior can be separated from an undersized final enclosure.
 Measure at minimum:
 
 - ambient air temperature;
-- matrix substrate/case temperature at the manufacturer-defined reference point;
+- representative COB case/carrier temperature at the manufacturer-defined reference point;
 - heat-spreader temperature close to the matrix;
 - heatsink exhaust/outlet temperature if forced airflow is used.
 
@@ -99,12 +107,12 @@ and oscilloscope in addition to real-camera tests.
 
 ## 4. Safety and fixture setup
 
-High-power matrix testing involves high light intensity, hot surfaces, and
+High-power light-engine testing involves high light intensity, hot surfaces, and
 hundreds of watts of electrical power.
 
 The test fixture shall include:
 
-- mechanically clamped matrix and verified thermal interface before energizing;
+- mechanically clamped COBs/carrier and verified thermal interface before energizing;
 - protective cover/guard against accidental contact with hot live parts;
 - eye-safe working practice: do not view the energized bare matrix directly;
 - current limiting active before output enable;
@@ -124,28 +132,24 @@ characterization.
 
 Test WW and CW **separately first**.
 
-For the 300 W-class candidate, characterize approximately:
+For each Prototype A COB branch, characterize the published/common drive
+points first:
 
 ```text
-0.4 A
-1.0 A
-2.0 A
-3.0 A
-4.0 A
+0.585 A
+0.780 A
+1.170 A
+1.755 A
+~2.11 A prototype operating maximum
 ```
 
-For the 500 W-class candidate:
+A 2.34 A point may be characterized briefly when thermally safe because it is
+the component maximum used in the datasheet performance table, but it is not the
+normal Prototype A operating target.
 
-```text
-0.84 A
-2.1 A
-4.2 A
-6.3 A
-8.4 A
-```
-
-These correspond to approximately 10, 25, 50, 75, and 100 % of the published
-endpoint test current.
+Run one branch first, then one complete 4-COB bank, before mixed eight-COB
+operation. This separates individual-emitter behavior from branch matching and
+thermal-spreader behavior.
 
 At each point record:
 
@@ -193,8 +197,8 @@ works at every power.
 
 ## 7. Phase B — tunable-white mixing trajectory
 
-After Yujileds confirms the allowed simultaneous-current envelope, characterize
-mixed operation.
+After the individual branches and both complete banks are thermally validated,
+characterize mixed operation while enforcing the 300 W aggregate LEM ceiling.
 
 Do **not** assume CCT is linear with WW/CW current ratio.
 
@@ -327,10 +331,10 @@ Each measurement record should include enough metadata to reproduce it:
 ```text
 date/time
 emitter part/revision/serial
-WW current
-CW current
-WW voltage
-CW voltage
+WW branch currents
+CW branch currents
+WW branch voltages
+CW branch voltages
 electrical power
 ambient temperature
 substrate/case temperature
@@ -360,22 +364,24 @@ notes
 Raw measurements should be preserved. Derived summaries must not overwrite the
 original observations.
 
-## 13. Decision criteria after the first sample
+## 13. Decision criteria after Prototype A
 
-The 300 W-class candidate remains preferred if it:
+Keep the approximately 300 W / 4+4 architecture direction if it:
 
 - comfortably supports the normal 90 cm key-light scenario;
-- approaches the limit scenario closely enough that the extra size/noise/cost of
-  the 500 W-class engine is not justified;
+- approaches the 120 cm limit scenario closely enough that a substantially
+  larger emitter bank is not justified;
+- achieves acceptable spatial/angular color mixing;
 - maintains acceptable color behavior across CCT and thermal state.
 
-Move to the 500 W-class candidate if the smaller matrix cannot satisfy the
-intended real-world key-light use at 2 m with reasonable camera settings and
-modifier losses.
+If Prototype A is insufficient, compare three choices explicitly:
 
-If neither candidate can reach 1200 lx through the limit modifier without an
-unacceptable thermal/acoustic system, revise the 1200 lx TARGET rather than
-silently turning the project into an impractical fixture.
+1. increase COB count / LEM power class;
+2. improve optical coupling and modifier efficiency;
+3. revise the 1200 lx limit TARGET.
+
+Do not silently scale the head to 500–600 W without showing that the real use
+case justifies the thermal, acoustic, mechanical, and cost penalty.
 
 ## References
 
@@ -394,5 +400,5 @@ silently turning the project into an impractical fixture.
    https://ies.org/standards/lighting-library/
 5. NIST, **Spectral measurement**.
    https://www.nist.gov/pml/sensor-science/optical-radiation/spectral-measurement
-6. Yujileds, **LED Matrix Solution Introduction & Datasheet, V1.5**.
-   https://www.yujiintl.com/wp-content/uploads/2022/09/Yujileds-LED-Matrix-Solution-V1.5.pdf
+6. Bridgelux, **Gen 7 V18 Thrive Array / Thrive family**.
+   https://www.bridgelux.com/thrive
