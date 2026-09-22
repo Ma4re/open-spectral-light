@@ -31,8 +31,12 @@ dependencies. Power-stage comparison now prefers eight independent buck
 constant-current branches from a nominal 48 V bus, with TI LM3409HV as the
 baseline branch-controller candidate and synchronized controllers retained as
 alternatives if EMI/temporal testing requires them. A ~400 W external source
-class is the current full-output target. Neither 48 V nor the driver IC is yet a
-frozen hardware contract.
+class is the current full-output target. The first branch-sizing pass now uses
+470 pF / 31.6 kOhm constant-off-time timing, 56 uH, ~0.105 Ohm current sense,
+~1.20 V full-scale IADJ, and candidate ~46.5/44.5 V UVLO thresholds. Example
+bench discretes include a moderate-gate-charge 100 V PFET and 100 V / 5 A
+Schottky. Neither 48 V, LM3409HV, nor these discrete parts are frozen hardware
+contracts.
 
 ## Active Goal
 
@@ -84,8 +88,9 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Design and simulate one representative 48 V -> 31–42 V / ~2.11 A constant-
-current buck branch around the LM3409HV baseline. Establish switching frequency,
-inductor/ripple target, sense resistor, PFET/diode stress, analog-dimming mapping,
-dropout margin, and expected efficiency before replicating the branch eight
-times. Continue the carrier thermal model and local mixing study in parallel.
+Run the TI vendor-macro-model transient simulation for the sized Prototype A
+LM3409HV branch. Validate 31/35.5/41.2 V LED operating points, ~2.11 A current
+regulation, IADJ sweep through the ~8 % CCM boundary into DCM, startup/EN,
+UVLO/dropout, open/short load behavior, and component tolerances. Only then
+promote the branch into a Rev A PSM schematic. Continue the carrier thermal
+model and local mixing study in parallel.
