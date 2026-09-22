@@ -44,10 +44,26 @@ Owns high-power LED current regulation, electrical protection, channel actuation
 and power-stage telemetry exposed to the controller. The driver topology and ICs
 are not yet selected.
 
+The power stage is also treated as a replaceable module (PSM). A light engine
+that remains inside one PSM compatibility envelope may be replaced without
+changing the controller or power stage. A future light engine that requires a
+substantially different voltage/current/channel envelope may replace the PSM and
+LEM together while preserving the controller-facing product behavior.
+
 ### Light engine
 
-Owns LEDs, emitter strings, MCPCB/layout, thermal interface, channel identity, and
-optical source geometry. Channel count and exact wavelengths are not yet frozen.
+Owns LEDs, emitter strings, MCPCB/layout, local heat spreader, module temperature
+sensing, module identity/calibration data, channel identity, and optical source
+geometry. Channel count and exact wavelengths are not yet frozen.
+
+The light engine is treated as a **replaceable module (LEM)**. Vendor-specific
+COB footprints, string arrangement, and local mixing remain inside the LEM. The
+head sees a stable mechanical, thermal, optical, high-power electrical, and
+low-voltage identification/sensing interface.
+
+The Phase 1 base profile is a two-white-channel concept (`LEM-TW2`): warm and
+cool loads are independently driven by the power stage. Exact voltage/current
+limits, connectors, mounting dimensions, and descriptor bus are not yet frozen.
 
 ### Sensor module
 
@@ -101,3 +117,49 @@ Repository folder names describe responsibilities, not parts. Use
 `hardware/controller/`, not `hardware/stm32h563/`; use `hardware/sensor/`, not a
 specific sensor part number. Physical revisions are introduced only once real
 schematics/layouts exist, for example `hardware/power/rev-a/`.
+
+
+## 6. Replaceable module interfaces
+
+OpenSpectralLight standardizes module boundaries rather than emitter brands.
+
+The stable product hierarchy is:
+
+```text
+Controller Module
+      |
+      | control / telemetry
+      v
+Power Stage Module
+      |
+      | regulated LED channels
+      v
+Light Engine Module
+      |
+      | standardized optical datum
+      v
+Head optics / Bowens interface
+```
+
+The LEM contract is split into five logical interfaces:
+
+1. mechanical datum and mounting;
+2. rear thermal-interface plane;
+3. optical axis / emitting-plane envelope;
+4. regulated high-power LED channels;
+5. low-voltage temperature, identity, and calibration access.
+
+Exact physical connectors and dimensions are hardware contracts that will be
+frozen only after the first 250–350 W prototype establishes realistic electrical,
+thermal, and geometric envelopes.
+
+The LEM carries emitter-specific calibration and identification. The controller
+owns product-level policy. The power stage owns hard electrical protection.
+A module descriptor may reduce allowed operating limits but may never increase
+the hardware capability of the power stage.
+
+Phase 1 modules are service-replaceable while unpowered; hot-swapping is not a
+requirement.
+
+The detailed pre-decision interface study is
+[`studies/light-engine-module-interface.md`](studies/light-engine-module-interface.md).
