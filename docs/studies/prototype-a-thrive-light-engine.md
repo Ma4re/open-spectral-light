@@ -227,8 +227,11 @@ At the 300 W endpoint:
 - branch Vf approximately 35–41 V design range;
 - bank electrical ceiling approximately 300 W.
 
-This topology is naturally compatible with a future approximately 48 V DC bus
-and buck-style branch regulation, but 48 V and the driver topology remain OPEN.
+Power-stage comparison now makes a **48 V nominal bus with eight independent
+buck current regulators** the preferred Prototype A direction. The bus remains a
+TARGET until dropout, protection, wiring drop, efficiency, and thermal behavior
+are validated. See
+[`phase-1-power-stage-architecture.md`](phase-1-power-stage-architecture.md).
 
 ## 11. Alternative string topology kept for comparison
 
