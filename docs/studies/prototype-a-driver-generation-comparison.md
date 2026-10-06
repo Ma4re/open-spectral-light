@@ -438,8 +438,8 @@ The first detailed branch design should use:
 | VLED | ~31–42 V |
 | ILED full scale | ~2.11 A |
 | RSENSE | ~94.8 mOhm, >=1 W, low TCR |
-| Switching frequency | compare ~400 kHz and ~600 kHz |
-| Inductor | compare ~68 uH @400 kHz and ~47–56 uH @600 kHz |
+| Switching frequency | **400 kHz baseline**; 600 kHz A/B only |
+| Inductor | **47 uH @400 kHz baseline**; 33 uH @600 kHz A/B |
 | Dimming baseline | analog/flexible current control |
 | Deep dimming | common synchronized PWM only if validated |
 | Output capacitor | populated/characterized |
@@ -449,10 +449,15 @@ The first detailed branch design should use:
 
 ## 15. Next exact step
 
-Perform the detailed TPS92205x branch sizing and simulation using TI's current
-PSpice/SIMPLIS model.
+Detailed analytical branch sizing is now complete and documented in
+[`prototype-a-tps92205x-branch.md`](prototype-a-tps92205x-branch.md).
 
-The design must verify:
+The preferred electrical baseline is TPS922054 in VSON DMT, 400 kHz, 47 uH,
+~95 mOhm current sense, and ~3–5 uF effective output capacitance. TPS922055 and
+600 kHz / 33 uH remain deliberate A/B variants.
+
+The next step is current TI PSpice/SIMPLIS simulation and a one-branch PCB. The
+design must verify:
 
 - 31 V, 35.5 V, and ~41.2 V LED points;
 - 2.11 A full-scale accuracy;
