@@ -384,41 +384,39 @@ to product firmware.
 
 ## 10. Branch ripple target
 
-A switching LED driver necessarily contains high-frequency current ripple.
+The detailed TPS92205x sizing changes the preferred electrical-ripple trade.
 
-For the first branch design, a sensible engineering target is to keep inductor/
-LED current ripple approximately in the **10–20 % peak-to-peak** range at the
-high-power nominal point and then measure the actual optical waveform.
+TI's current guidance for this driver family treats approximately 20–60 %
+inductor-current ripple as a reasonable design region. Because the branch can
+use output capacitance to reduce actual LED-current ripple, there is little value
+in making the inductor unnecessarily large merely to force 10–20 % inductor
+ripple.
 
-At approximately:
+The current Rev A branch baseline is:
 
 ```text
-Vin = 48 V
-Vout = 35.5 V
-Iout = 2.11 A
-fsw ~ 400 kHz
+Vin nominal = 48 V
+VLED typical = ~35.5 V
+ILED = ~2.11 A
+fSW = 400 kHz
+L = 47 uH
 ```
 
-a first-order buck calculation gives roughly:
+At the conservative 52.8 V input corner, this gives approximately 0.615 A p-p
+(~29 %) inductor ripple at the typical LED voltage.
 
-- ~110 uH for approximately 10 % p-p current ripple;
-- ~55 uH for approximately 20 % p-p current ripple.
+A 600 kHz / 33 uH variant produces nearly the same ripple in the same physical
+inductor package class, so 400 kHz is preferred for lower switching loss and
+better high-duty/dropout margin.
 
-TI's 48 V -> 42 V / 1.5 A evaluation design uses 33 uH at its own operating
-point, confirming that practical inductance is strongly dependent on selected
-ripple, voltage ratio, and current.
+Output capacitance is then sized to target only a few percent switching ripple
+through the actual COB.
 
-A first branch-sizing pass now prefers **56 uH** as the bench baseline,
-producing about 0.35 A p-p (~16.5 %) ripple at the nominal 48 V -> 35.5 V /
-2.11 A point. The example Bourns SRR1280-560M is suitable for initial
-characterization but has limited saturation margin at its -20 % inductance
-tolerance and is not frozen for production.
+Detailed sizing is documented in
+[`prototype-a-tps92205x-branch.md`](prototype-a-tps92205x-branch.md).
 
-Detailed branch sizing is documented in
-[`prototype-a-lm3409hv-branch.md`](prototype-a-lm3409hv-branch.md).
-
-The camera requirement is based on measured optical modulation, not on an
-arbitrary electrical ripple percentage.
+The camera requirement remains based on measured optical modulation, not on an
+arbitrary electrical-ripple percentage.
 
 ## 11. Input protection boundary
 
@@ -541,25 +539,27 @@ Before 48 V becomes FROZEN, the project should verify:
 
 ## 16. Immediate next step
 
-The LM3409HV analytical branch-sizing pass remains documented as a fallback
-reference. The newer driver comparison changes the next implementation step.
+The detailed TPS92205x analytical branch sizing is complete.
 
-The next exact step is to size and simulate one **TPS92205x 4 A branch** around:
+The preferred Rev A branch baseline is now:
 
-- 48 V nominal input;
-- ~31–42 V LED envelope;
-- ~2.11 A full-scale current;
-- ~94.8 mOhm current sense;
-- 400 kHz versus 600 kHz switching comparison;
-- approximately 47–68 uH inductor study depending on frequency/ripple;
-- populated output capacitance;
-- analog/flexible dimming;
-- common fault/enable behavior.
+- TPS922054 first population / TPS922055 EMI A/B variant;
+- 14-pin VSON DMT package;
+- 48 V nominal bus;
+- ~46 V candidate minimum full-power input, to validate;
+- ~31–41.2 V LED characterization range;
+- ~2.11 A full-scale LED current;
+- ~95 mOhm sense resistance;
+- 400 kHz / 59 kOhm RFSET;
+- 47 uH inductor;
+- ~3–5 uF effective output capacitance target;
+- flexible dimming with continuous-current control as the normal mode;
+- FAULT and thermal-foldback behavior exposed for characterization.
 
-Use the same PCB/power-stage architecture to compare TPS922054 and TPS922055
-where package compatibility permits. Do not replicate the branch eight times
-until optical waveform, EMI, thermal behavior, and supply-chain viability are
-validated.
+The next exact step is a TI PSpice/SIMPLIS simulation followed by one physical
+branch PCB. Validate current accuracy, dropout, thermal loss, optical ripple,
+dimming, and TPS922054-vs-TPS922055 behavior before replicating the branch eight
+times.
 
 ## References
 
