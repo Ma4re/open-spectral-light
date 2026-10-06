@@ -1,5 +1,11 @@
 # Prototype A — LM3409HV Branch Design
 
+> **Status:** fallback/reference branch. A newer-generation comparison now
+> prefers the TPS922054/TPS922055 family for the first Prototype A implementation.
+> The calculations here remain valuable as a mature 75 V alternative and
+> performance benchmark. See
+> [`prototype-a-driver-generation-comparison.md`](prototype-a-driver-generation-comparison.md).
+
 ## 1. Purpose
 
 This study turns the preferred Phase 1 power-stage architecture into one
