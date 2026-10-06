@@ -27,16 +27,15 @@ now dimensioned as 4 x 2700 K + 4 x 6500 K V18 Thrive COBs in an alternating
 octagonal ring, with an approximately 300 W total target ceiling, approximately
 2.11 A normal maximum per active branch, and an approximately 110 mm raw source
 envelope. The Bridgelux parts are prototype references rather than frozen vendor
-dependencies. Power-stage comparison now prefers eight independent buck
-constant-current branches from a nominal 48 V bus, with TI LM3409HV as the
-baseline branch-controller candidate and synchronized controllers retained as
-alternatives if EMI/temporal testing requires them. A ~400 W external source
-class is the current full-output target. The first branch-sizing pass now uses
-470 pF / 31.6 kOhm constant-off-time timing, 56 uH, ~0.105 Ohm current sense,
-~1.20 V full-scale IADJ, and candidate ~46.5/44.5 V UVLO thresholds. Example
-bench discretes include a moderate-gate-charge 100 V PFET and 100 V / 5 A
-Schottky. Neither 48 V, LM3409HV, nor these discrete parts are frozen hardware
-contracts.
+dependencies. Power-stage comparison still prefers eight independent buck constant-current
+branches from a nominal 48 V bus, but the branch-controller baseline has moved
+from LM3409HV to the newer TI TPS92205x 4 A family. TPS922054 (spread spectrum
+disabled) is the first optical-characterization candidate; TPS922055 (spread
+spectrum enabled) is the EMI comparison candidate on the same branch
+architecture. TI's 48 V / 36 V / 2 A reference design closely matches Prototype
+A. LM3409HV remains an active, mature 75 V fallback/reference. A ~400 W external
+source class is still the current full-output target. Neither 48 V nor a driver
+IC is yet a frozen hardware contract.
 
 ## Active Goal
 
@@ -68,7 +67,7 @@ connector, or sensor parts.
 - Whether the 1200 lx at 2 m limit target remains practical after real modifier, thermal, acoustic, and cost validation.
 - Final CCT range after emitter/channel trade-off analysis; 2700–6500 K is the current target.
 - Final qualification of the Prototype A 4+4 layout, mixing geometry, and future tint/spectral-expansion path.
-- Validation of the preferred eight-branch buck PSM and the minimum continuous-current dimming point.
+- Validation of the preferred eight-branch buck PSM, TPS922054-vs-TPS922055 choice, and minimum continuous-current dimming point.
 - Final 48 V input tolerance, connector, and protection strategy.
 - Thermal/mechanical envelope, fan requirement, and acoustic target.
 - Exact local UI parameter set and whether the encoder needs supporting buttons.
@@ -88,9 +87,10 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Run the TI vendor-macro-model transient simulation for the sized Prototype A
-LM3409HV branch. Validate 31/35.5/41.2 V LED operating points, ~2.11 A current
-regulation, IADJ sweep through the ~8 % CCM boundary into DCM, startup/EN,
-UVLO/dropout, open/short load behavior, and component tolerances. Only then
-promote the branch into a Rev A PSM schematic. Continue the carrier thermal
-model and local mixing study in parallel.
+Size and simulate one Prototype A TPS92205x 4 A branch at 48 V nominal,
+~31/35.5/41.2 V LED operating points, and ~2.11 A full scale. Compare 400 kHz
+versus 600 kHz, select the inductor/output-capacitor range, verify analog/flexible
+dimming and faults, and keep the PCB compatible with TPS922054/TPS922055 where
+the selected package permits. Bench A/B testing must decide low-light optical
+quality versus spread-spectrum EMI benefit before the driver is frozen. Continue
+the carrier thermal model and local mixing study in parallel.
