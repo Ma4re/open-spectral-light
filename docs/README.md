@@ -68,6 +68,7 @@ Current studies:
 - [`studies/phase-1-power-stage-architecture.md`](studies/phase-1-power-stage-architecture.md)
 - [`studies/prototype-a-lm3409hv-branch.md`](studies/prototype-a-lm3409hv-branch.md)
 - [`studies/prototype-a-driver-generation-comparison.md`](studies/prototype-a-driver-generation-comparison.md)
+- [`studies/prototype-a-tps92205x-branch.md`](studies/prototype-a-tps92205x-branch.md)
 
 Accepted durable decisions belong in `adr/`. Current execution context belongs in
 `agent-handoff.md`. Temporary implementation plans do not override architecture,
