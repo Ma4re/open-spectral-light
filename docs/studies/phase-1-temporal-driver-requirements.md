@@ -55,12 +55,18 @@ practical output range as the emitter and driver permit while maintaining:
 The minimum continuous-current level is OPEN until the selected emitter/branch
 is characterized.
 
-For the current Prototype A 56 uH LM3409HV sizing, the first-order CCM/DCM
-boundary is around **0.175 A per branch**, roughly **8 % of the 2.11 A maximum
-branch current**. The controller's advertised 250:1 analog-dimming capability
-must therefore not be interpreted as 250:1 linear camera-grade CCM dimming for
-this specific branch. DCM behavior below that region still requires simulation
-and optical validation.
+The LM3409HV fallback study showed why a headline analog-dimming ratio cannot be
+treated as the fixture's guaranteed low-end performance.
+
+The preferred TPS92205x family improves the control options: its ADIM/HD input
+can command the internal current reference for continuous-current analog dimming,
+while flexible mode separately controls current and temporal PWM. The device also
+offers a built-in hybrid mode that changes from analog current control to PWM
+below approximately 12.5 % brightness.
+
+OpenSpectralLight does **not** automatically adopt that 12.5 % crossover.
+Low-output current accuracy, spectral behavior, and camera response must still
+determine the product crossover.
 
 ### Deep dimming
 
@@ -149,13 +155,18 @@ branch from a nominal 48 V bus** because the branch voltage remains below the
 bus and independent regulation avoids parallel-LED current-sharing problems.
 
 This remains a prototype architecture rather than a frozen driver implementation.
-The baseline branch-controller candidate is TI LM3409HV because its 75 V input
-range, high-side current sense, 250:1 analog dimming, and published 48 V -> 42 V
-reference design align closely with the current envelope.
+The preferred current branch family is now TI TPS922054/TPS922055 because its
+48 V / 36 V / 2 A reference design, 4 A current class, integrated protections,
+256:1 analog dimming, and flexible/hybrid control align closely with the current
+envelope.
 
-A synchronized fixed-frequency alternative such as TPS92691 remains relevant if
-bench testing shows that unsynchronized multi-branch switching creates
-unacceptable EMI or optical beat behavior.
+TPS922054 disables spread spectrum and is the first optical-characterization
+candidate. TPS922055 enables approximately +/-7 % frequency spreading at about
+2 kHz and is the EMI comparison candidate. The project must measure whether that
+modulation affects the optical waveform at any relevant operating point rather
+than assuming EMI spread spectrum is camera-transparent.
+
+LM3409HV remains the fallback/reference controller.
 
 The final implementation still depends on:
 
