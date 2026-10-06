@@ -219,34 +219,52 @@ raw battery stack whose voltage can fall below the LED branch requirement.
 
 ## 5. Preferred branch-controller direction
 
-The strongest current baseline candidate is **TI LM3409HV**.
+A newer-generation comparison now makes the **TI TPS92205x 4 A family
+(TPS922054/TPS922055)** the preferred Prototype A branch baseline.
 
-Relevant manufacturer-published characteristics:
+The detailed comparison is documented in
+[`prototype-a-driver-generation-comparison.md`](prototype-a-driver-generation-comparison.md).
 
-- active product;
-- 6–75 V input range;
-- buck LED-current controller;
-- external PFET allows branch power/current scaling;
-- up to 5 A LED current is supported by the controller class;
-- differential high-side current sensing;
-- cycle-by-cycle current limiting;
-- no loop-compensation network required;
-- 250:1 analog dimming range;
-- 10,000:1 PWM dimming capability.
+LM3409HV remains an active, technically valid fallback and benchmark; it is not
+being rejected because of age.
 
-Most importantly, TI's LM3409HV evaluation board already demonstrates:
+### 5.1 TPS92205x baseline
 
-- 48 V input;
-- 42 V LED output;
-- 1.5 A LED current;
-- approximately 400 kHz nominal switching frequency.
+Relevant strengths for Prototype A:
 
-Prototype A needs a higher 2.11 A branch current, so the evaluation board cannot
-be copied unchanged. The PFET, diode, inductor, current-sense resistor, thermal
-layout, and protection values must be redesigned.
+- 4.5–65 V input;
+- integrated 150 mOhm switching NMOS;
+- 4 A class;
+- 100 kHz–2.2 MHz programmable switching frequency;
+- 256:1 analog dimming;
+- analog, PWM, hybrid and flexible dimming;
+- integrated LED/switch/sense-resistor fault detection;
+- configurable thermal foldback;
+- open-drain FAULT output;
+- current PSpice/SIMPLIS support;
+- TI 48 V / 36 V / 2 A reference design closely matching the branch target.
 
-The EVM is valuable because it validates the **topology and voltage ratio**, not
-because it is a ready-made final branch.
+Prototype A should support A/B testing of the same-package TPS922054
+(no spread spectrum) and TPS922055 (spread spectrum) variants.
+
+TPS922054 is the preferred first optical-characterization population because TI
+explicitly notes that disabling spread spectrum favors low-brightness
+performance. TPS922055 remains the EMI comparison population.
+
+### 5.2 LM3409HV fallback/reference
+
+The LM3409HV remains a strong reference because it provides:
+
+- 6–75 V input margin;
+- external power-device optimization;
+- up to 5 A controller class;
+- 250:1 analog dimming;
+- a directly relevant 48 V -> 42 V / 1.5 A EVM;
+- a mature, widely available implementation path.
+
+Its previous branch study remains useful for comparison and fallback design.
+
+
 
 ## 6. Alternative branch controllers
 
@@ -472,8 +490,11 @@ Controller:
   GLOBAL_DIM        -> all active branches when hybrid/PWM is used
 ```
 
-Baseline branch-controller candidate: LM3409HV or an equivalent distributor-
-backed high-current buck controller meeting the same functional envelope.
+Baseline branch-controller family: **TPS922054/TPS922055** or an equivalent
+distributor-backed high-current buck driver meeting the same functional
+envelope.
+
+LM3409HV remains the fallback/reference implementation.
 
 ## 14. Candidate PSM-TW2 envelope
 
@@ -520,23 +541,25 @@ Before 48 V becomes FROZEN, the project should verify:
 
 ## 16. Immediate next step
 
-The analytical branch-sizing pass is complete. The preferred first simulation
-baseline is:
+The LM3409HV analytical branch-sizing pass remains documented as a fallback
+reference. The newer driver comparison changes the next implementation step.
 
-- LM3409HV;
+The next exact step is to size and simulate one **TPS92205x 4 A branch** around:
+
 - 48 V nominal input;
-- 470 pF COFF / 31.6 kOhm ROFF;
-- 56 uH branch inductance;
-- ~0.105 Ohm current sense;
-- ~1.20 V full-scale IADJ;
-- ~2.11 A normal maximum branch current;
-- ~46.5 V rising / ~44.5 V falling candidate UVLO window;
-- 100 V PFET and Schottky candidates with moderate PFET gate charge.
+- ~31–42 V LED envelope;
+- ~2.11 A full-scale current;
+- ~94.8 mOhm current sense;
+- 400 kHz versus 600 kHz switching comparison;
+- approximately 47–68 uH inductor study depending on frequency/ripple;
+- populated output capacitance;
+- analog/flexible dimming;
+- common fault/enable behavior.
 
-The next exact step is a **vendor-macro-model transient simulation** using TI's
-published TINA-TI/PSpice model. Validate nominal operation, LED-voltage corners,
-IADJ dimming into DCM, UVLO/dropout, startup, faults, and component tolerance
-before replicating the branch eight times.
+Use the same PCB/power-stage architecture to compare TPS922054 and TPS922055
+where package compatibility permits. Do not replicate the branch eight times
+until optical waveform, EMI, thermal behavior, and supply-chain viability are
+validated.
 
 ## References
 
