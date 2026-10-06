@@ -33,9 +33,13 @@ from LM3409HV to the newer TI TPS92205x 4 A family. TPS922054 (spread spectrum
 disabled) is the first optical-characterization candidate; TPS922055 (spread
 spectrum enabled) is the EMI comparison candidate on the same branch
 architecture. TI's 48 V / 36 V / 2 A reference design closely matches Prototype
-A. LM3409HV remains an active, mature 75 V fallback/reference. A ~400 W external
-source class is still the current full-output target. Neither 48 V nor a driver
-IC is yet a frozen hardware contract.
+A. Detailed branch sizing now prefers TPS922054 in VSON DMT at 400 kHz with a
+47 uH inductor, ~95 mOhm current sense, ~3–5 uF effective COUT, and a candidate
+~46 V minimum full-power input. TPS922055 is the same-architecture spread-
+spectrum EMI A/B variant; 600 kHz / 33 uH is retained only as a switching-
+frequency comparison. LM3409HV remains an active, mature 75 V fallback/reference.
+A ~400 W external source class is still the current full-output target. Neither
+48 V nor a driver IC is yet a frozen hardware contract.
 
 ## Active Goal
 
@@ -87,10 +91,9 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Size and simulate one Prototype A TPS92205x 4 A branch at 48 V nominal,
-~31/35.5/41.2 V LED operating points, and ~2.11 A full scale. Compare 400 kHz
-versus 600 kHz, select the inductor/output-capacitor range, verify analog/flexible
-dimming and faults, and keep the PCB compatible with TPS922054/TPS922055 where
-the selected package permits. Bench A/B testing must decide low-light optical
-quality versus spread-spectrum EMI benefit before the driver is frozen. Continue
-the carrier thermal model and local mixing study in parallel.
+Run the current TI PSpice/SIMPLIS model for the sized TPS92205x branch and then
+build one physical Rev A branch. Validate 31/35.5/41.2 V loads, ~2.11 A current,
+input sag toward the ~46 V full-power floor, COUT/optical ripple, temperature,
+FAULT behavior, flexible dimming, and TPS922054-vs-TPS922055 optical/EMI
+behavior. Only after this single branch passes should it be replicated eight
+times. Continue the carrier thermal model and local mixing study in parallel.
