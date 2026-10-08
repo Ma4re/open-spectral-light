@@ -531,18 +531,19 @@ to select a different MCU or LED driver today.
 
 **This study completes the logical CM–PSM–LEM safety contract.**
 
-The next engineering artifact should be a **minimal protection-architecture
-comparison** for:
+The minimum circuit-class comparison is now documented in
+[`prototype-a-minimal-psm-protection-architecture.md`](prototype-a-minimal-psm-protection-architecture.md).
+Its **preferred direction (not a frozen schematic)** is an independent external
+window watchdog, default-off branch EN/PWM override, shared hardware FAULT
+latch, source/input circuit breaker with suitably rated FETs, and qualified
+branch-current setpoint/fault transient behavior.
 
-- default-off supervised enable with independent freshness;
-- fault aggregation/latch for TPS922054's continue-switching cases;
-- bounded branch setpoint/current under single faults;
-- independent PSM input-overload shutdown/limiting;
-- safe response to LEM temperature/identity invalidity.
-
-Select the smallest circuit that actually passes the fault matrix and then
-apply it to the **one-branch** Rev A schematic and vendor-model simulation.
-Do **not** make an eight-channel board as the first hardware validation.
+The next artifact is a **protected one-branch schematic proposal** with a
+separate, low-energy shared-protection evaluation circuit. Verify that FAULT
+actually removes drive during TPS still-switching fault cases, that watchdog
+loss disables output, and that one COB sense fault is contained even when total
+PSM input current is below the shared input breaker threshold. Only after those
+checks should eight converter branches be considered.
 
 ## Primary references
 
