@@ -329,6 +329,20 @@ It is **not** the sole safety authority.
 
 A corrupted module descriptor must not be able to command unsafe LED current.
 
+**Important separation:** the PSM hardware's internal switching-current limit
+is not necessarily a safe continuous COB limit. For Prototype A the COB maximum
+is 2.34 A while the candidate TPS922054/055 switch-cycle current limit is much
+higher. The branch must have a separately validated current-setpoint ceiling,
+fault response, and startup/reset behavior.
+
+Eight independently regulated branches can nominally demand roughly **600 W**
+if all run around 75 W concurrently, while the intended LEM operating budget
+is approximately **300 W**. Accordingly, the CM/PSM boundary must define an
+aggregate module power budget and an independent source/input protection
+mechanism. Firmware arbitration alone is not proof of fail-safe behavior;
+the acceptable hardware response to a loss of control or an overbudget request
+must be demonstrated in simulation and hardware.
+
 Safety limits are layered:
 
 ```text
@@ -348,6 +362,9 @@ The effective command is constrained by the most restrictive applicable limit.
 Required behavior:
 
 - unknown/incompatible interface major version -> LED drive inhibited;
+- corrupt, unverified, or missing module descriptor/calibration -> no normal
+  LED output until a safe, explicitly defined recovery/service process;
+- hard power-stage and branch limits take precedence over data in module NVM;
 - missing primary temperature sensor -> LED drive inhibited or restricted to a
   deliberately defined diagnostic mode;
 - overtemperature -> hardware/low-level shutdown path independent of normal UI;
