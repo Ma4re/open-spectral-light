@@ -26,9 +26,12 @@ and bench measurements validate it.
 | Preferred package | 14-pin VSON DMT |
 | PSM branch count | 8 |
 
-The 4 A TPS922054/055 variants provide substantial current-limit margin above
-the 2.11 A application point. TI specifies a minimum cycle-by-cycle switch
-current limit of 5.2 A for these variants.
+The 4 A TPS922054/055 variants can support the approximately 2.11 A normal
+branch target. TI's cycle-by-cycle **switch** current limit is materially higher
+than the COB's 2.34 A maximum. This is a device-fault protection feature, **not**
+a permissible continuous LED-current setpoint or an independent COB safety
+limit. Startup, command corruption, sense-network faults, and open/short load
+responses must be evaluated against the actual emitter maximum.
 
 The VSON DMT package is preferred for first hardware because TI publishes a
 lower junction-to-ambient thermal resistance than the WSON alternative:
@@ -257,20 +260,20 @@ network after the head protection stage.
 
 TPS92205x intentionally supports output capacitance to reduce LED-current ripple.
 
-For a first-order calculation, the Prototype A Thrive COB dynamic resistance
-near the high-current operating point is approximately 0.9 Ohm, inferred from
-the published Vf/current behavior. This value must later be measured on actual
-samples.
+The previous 0.9 Ohm dynamic-resistance estimate was insufficiently supported.
+The Bridgelux V18 typical DC Vf values around 1.755 A (about 35.6 V) and
+2.34 A (about 36.6 V) instead imply a **secant slope of about 1.7 Ohm** over
+that current interval. This is not guaranteed to equal the local small-signal
+impedance at 400 kHz, especially with junction/device capacitance, temperature
+and wiring parasitics.
 
-At 400 kHz / 47 uH, nominal inductor ripple is approximately 0.615 A p-p.
+At 400 kHz / 47 uH, first-order inductor ripple is approximately 0.615 A p-p
+at the conservative input corner. The LED-current ripple cannot be guaranteed
+from this DC secant slope alone.
 
-The TI output-capacitor relationship gives approximately:
-
-| Target LED-current ripple | Required effective COUT |
-|---:|---:|
-| 200 mA p-p | ~0.9 uF |
-| 100 mA p-p | ~2.3 uF |
-| 50 mA p-p | ~5.0 uF |
+Consequently, do not use the former 0.9-Ohm-based 0.9/2.3/5.0-uF lookup values
+as verified capacitor requirements. Characterize several effective COUT levels
+with the TI macro-model and real LED-current/optical-waveform measurements.
 
 ### Baseline
 
@@ -285,8 +288,8 @@ A practical footprint experiment can begin with:
 
 after verifying the actual derated capacitance.
 
-This should put the branch in the region of only a few percent switching ripple
-through the COB, while still allowing useful dimming response.
+This **might** reduce COB-current ripple into the few-percent region; that is a
+measurement hypothesis, not a guaranteed electrical or optical specification.
 
 Do not oversize COUT blindly. TI's 2026 dimming application note demonstrates
 that larger COUT reduces high-frequency ripple but slows PWM edge response
@@ -585,7 +588,29 @@ Therefore:
 LM3409HV remains the fallback if TPS92205x shows an unexpected thermal,
 low-brightness, EMI, availability, or 65 V-margin problem.
 
-## 19. Remaining validation before replication x8
+## 19. Aggregate power and fail-safe contract
+
+A 300 W total LEM operating ceiling must not be inferred from the eight
+individual 2.11 A current ceilings. Eight COBs at ~75 W each can nominally
+request ~600 W before derating. The ~400 W-class source cannot sustain that
+condition.
+
+Required implementation evidence before full PSM replication:
+
+- enforce the aggregate WW + CW electrical budget in normal control;
+- bound each branch independently through validated analog setpoint/routing
+  and fault behavior, not solely the controller's advertised switch OCP;
+- implement a common input-current/power-limiting or safe-disable mechanism
+  that prevents a persistent command/fault from overloading the external source;
+- define and verify a fail-off behavior on controller reset, missing LEM,
+  invalid module descriptor, lost setpoint signal, or thermal-sensor fault;
+- verify FAULT propagation and latching/recovery policy for multiple branches.
+
+The exact components, thresholds, and response times are OPEN. These are safety
+and interface requirements; they must not be converted into arbitrary resistor
+values before a circuit and fault analysis exist.
+
+## 20. Remaining validation before replication x8
 
 Before copying the branch eight times:
 
