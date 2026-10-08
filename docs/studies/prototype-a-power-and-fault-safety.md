@@ -10,6 +10,9 @@ white roles (WW/CW), four separately current-regulated COB branches per role.
 This study addresses the highest-priority gaps in
 [`2026-10-08-documentation-sanity-check.md`](2026-10-08-documentation-sanity-check.md).
 It supplements, but does not supersede, the Phase 1 product requirements.
+The accepted [power-envelope policy](../adr/0001-power-envelope-policy.md)
+clarifies that **300 W is a starting characterization point, never an obligatory
+hardware trip or permanent maximum output rating**.
 
 ## 1. Executive decision
 
@@ -31,10 +34,11 @@ A second safety MCU and an elaborate safety bus are **not** presumed necessary.
 A supervised shared-enable path, appropriately designed fault latch, sensing and
 input protection are the first low-complexity hardware direction to evaluate.
 
-**Crucial caveat:** a source overcurrent trip that protects a ~400 W PSU does
-not, by itself, prove an exact independent **300 W** LED-module power ceiling.
-That distinction must remain explicit until the safety analysis and response-time
-measurements justify the implementation.
+**Crucial caveat:** the **300 W starting point is not a hardware safety limit**.
+If a higher output is optically useful and electrically/thermally qualified, the
+normal operating budget may increase. A source overload protector must still
+prevent unsafe sustained input demand; its threshold follows the **qualified
+source and head envelope**, not the number 300 W.
 
 ## 2. Source-backed facts and design assumptions
 
@@ -48,8 +52,8 @@ measurements justify the implementation.
 | Typical COB high-power voltage | Engineering estimate | ~35.5 V |
 | Installed nominal LED output at all branches full | Calculated *fault scenario* | 8 × 2.11 A × 35.5 V ≈ **599 W** |
 | Higher-voltage conservative comparison | Calculated *not guaranteed simultaneous* | 8 × 2.11 A × 41.2 V ≈ **696 W** |
-| Phase 1 total LED output | TARGET | ~300 W combined WW + CW |
-| External DC source | TARGET | Regulated 48 V nominal, ~400 W class |
+| Initial LED characterization output | TARGET | ~300 W combined WW + CW, **not a maximum** |
+| External DC source | TARGET | Regulated 48 V nominal; ~400 W class for initial ~300 W LED bench operation only |
 | PSM branch topology | Preferred study direction | Eight independent constant-current bucks |
 | Prototype branch-driver candidate | TARGET, not frozen | TPS922054 first branch, TPS922055 EMI comparison |
 
@@ -125,18 +129,19 @@ its contents do not become a hardware-authoritative protection threshold.
 |---|---|---|
 | `I_BRANCH_OPERATIONAL_MAX` | Normal per-COB command ceiling (~2.11 A target) | Configured branch setpoint and CM allocation |
 | `I_BRANCH_COMPONENT_MAX` | Emitter datasheet absolute/current maximum (2.34 A for candidate V18) | Must be respected over tolerances/transients; not synonymous with IC switch OCP |
-| `P_LEM_NORMAL_MAX` | Total permitted operating LED electrical output (~300 W TARGET) | CM allocation, PSM validation; required normal behavior |
+| `P_LEM_QUALIFIED_OPERATING_MAX` | Maximum qualified **continuous** LED electrical output for the selected LEM/PSM/PSU/cooling/ambient conditions; starts with ~300 W bench characterization, may be higher after validation | CM allocation and bounded PSM operation; no fixed 300 W hardware clamp |
 | `P_LEM_FAULT_ENVELOPE` | Maximum allowed energy/time excursion beyond normal operating point | **OPEN**; select from emitter/thermal and hazard analysis |
 | `P_PSM_INPUT_ALLOWED` | Actual allowed input power/current across source voltage, including auxiliary loads | Input supervisor/limit/disable and source coordination |
 | `V_BUS_FULL_POWER_MIN` | Candidate input where all qualified operating points can run | ~46 V initial study target, **OPEN** |
 | `V_BUS_MAX_SAFE` | Source tolerance plus protected transients consistent with driver ratings | **OPEN**, must distinguish recommended operating from absolute maximum |
 
-A normal firmware limiter can implement **exact** total output-power
-allocation. An independent simpler input current/power supervisor can bound
-a **hazardous sustained overload** without necessarily clamping exactly at
-300 W. A true hardware-enforced 300 W constant-power limit would require a
-separate demonstrable output-power constraint (or a proven conservative
-current/voltage envelope), not merely a statement about the input fuse.
+A normal firmware power allocator shall operate within the **currently
+qualified** output-power envelope, with calibration/derating margin. That limit
+can rise above ~300 W only once the corresponding hardware configuration and
+operating conditions have been characterized. An independent simpler input
+current/power supervisor must contain **hazardous sustained overloads**; it
+need not enforce any arbitrary exact LED-wattage limit. A source or input fuse
+is not a substitute for demonstrated branch current and thermal protection.
 
 ### 4.2 Normal operating calculation
 
@@ -145,7 +150,7 @@ requests from requested brightness and CCT and apply a total LED power budget:
 
 ```text
 P_LEM_est = sum over enabled branches (V_LED_branch_est × I_LED_branch_cmd)
-P_LEM_est <= min(P_LEM_normal_target, LEM_declared,
+P_LEM_est <= min(P_LEM_qualified_operating_max, LEM_declared,
                  PSM_qualified, thermal_derated, available_input_budget)
 ```
 
@@ -185,9 +190,9 @@ A fault of one supply component, current monitor or shared-enable signal
 must be considered explicitly. No unverified claim of single-fault tolerance
 is made here.
 
-**Do not freeze:** an 8.33 A threshold, a 300 W constant-power comparator, a
-fuse rating, supervisor IC, or a protection delay from these approximate
-figures. They depend on accepted source derating, actual 48 V input envelope,
+**Do not freeze:** an 8.33 A threshold, any arbitrary 300 W constant-power
+comparator, a fuse rating, supervisor IC, or a protection delay from these
+approximate figures. They depend on accepted source derating, actual 48 V input envelope,
 driver efficiency, thermal time constants and stored energy.
 
 ## 5. Default-off and arming contract
@@ -335,7 +340,7 @@ These levels are proposed policies, not validated thresholds or time budgets.
 
 | ID | Stimulus / failure | Detection / evidence required | Minimum desired response | Open design issue |
 |---|---|---|---|---|
-| FS-01 | All 8 branches commanded maximum (~600 W nominal installed demand) | Normal `P_LEM` budget; independently monitored input overload | S1 normal clamping; S2 if demand persists outside safe envelope | Distinguish 300 W normal cap from hardware overload trip |
+| FS-01 | All 8 branches commanded maximum (~600 W nominal installed demand) | Current qualified WW+CW budget; independently monitored input overload | S1 clamp to qualified operating envelope; S2 if sustained unsafe input demand | Qualify source/PSM/LEM first; no arbitrary 300 W trip |
 | FS-02 | One branch command exceeds rated/qualified COB current | Branch setpoint bounding; current sense and fault observation | S2 branch or global inhibit before damaging excursion | Independent branch overcurrent limit and response time |
 | FS-03 | Current-sense resistor open | TPS FAULT plus independent disable path | S2 latched | Validate TPS detection timing and analog maximum excursion |
 | FS-04 | Current-sense resistor short | TPS FAULT **while switching may continue** | S2 external latch/global inhibit | Ensure FAULT actually removes drive despite IC auto-behavior |
@@ -384,7 +389,7 @@ Evaluate the following in this order to avoid overengineering:
   protection losses.
 
 **Do not equate a simple input fuse or the PSU's hiccup response with a
-regulated 300 W LED output budget.**
+qualified output budget or comprehensive hardware protection.**
 
 ### C. Per-branch current safety
 
@@ -437,7 +442,7 @@ specific hardware necessary** to close that failure mode.
 |---|---|---|---|
 | VT-01 | Power-up, MCU boot/reset and controls disconnected | EN/PWM, branch current, bus waveform | No unintended sustained emission; validated startup transient envelope |
 | VT-02 | LEM missing, wrong interface version, invalid CRC, uncalibrated | Module ID result, arm signal, LED output | Normal emission inhibited |
-| VT-03 | Normal WW/CW CCT sweep including intermediate mixing | Branch V/I, computed total LED watts | Never sustains a command above the qualified normal aggregate budget |
+| VT-03 | Normal WW/CW CCT sweep including intermediate mixing, first at ~300 W then at any newly qualified higher point | Branch V/I, measured total LED watts and temperatures | Does not exceed the **current qualified** operating budget; no fixed 300 W ceiling assumed |
 | VT-04 | Inject all-eight-full-scale demand via safe emulator | Input/budget status, latch and output currents | Input and LED energy bounded by qualified time/power envelope; no PSU uncontrolled cycling |
 | VT-05 | Branch setpoint high, stuck ADIM signal and current-sense short/open | Actual branch current and FAULT, disable latency | No damaging COB overcurrent; fail safely independent of firmware |
 | VT-06 | LED short/open, hot/reconnect forbidden test via emulator | Switching/FAULT, current/voltage, discharge | Safe limit/inhibit; defined no-hot-reconnect behavior |
@@ -500,10 +505,10 @@ branch and head-level test records.
 
 ## 12. Pre-Rev-A decisions still OPEN
 
-1. Whether the normal 300 W LED ceiling is also required as an **independently
-   guaranteed exact hard limit**, or whether normal accurate 300 W allocation
-   plus a separately qualified higher/short-duration hardware fault limit meets
-   the thermal/safety requirement.
+1. **Resolved by ADR-0001:** 300 W is the first characterization point, **not**
+   an independent hardware ceiling. Still OPEN: the measured maximum useful
+   continuous output, associated thermal/ambient derating, and input-overload
+   fault threshold/response time for each qualified source configuration.
 2. Actual source continuous and transient envelope (input voltage tolerance,
    derating, maximum current, connector and cable drops).
 3. PSM shared overload response: comparator/limiter/eFuse/fault latch and
