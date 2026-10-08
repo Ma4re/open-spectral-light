@@ -598,10 +598,12 @@ short) that assert FAULT **while switching can continue**, so the external
 fault-inhibit/latch is a required design study before relying on automatic IC
 recovery.
 
-A 300 W total LEM operating ceiling must not be inferred from the eight
-individual 2.11 A current ceilings. Eight COBs at ~75 W each can nominally
-request ~600 W before derating. The ~400 W-class source cannot sustain that
-condition.
+**300 W is the initial characterization point, not a hardware ceiling** under
+[ADR-0001](../adr/0001-power-envelope-policy.md). Eight COBs at ~75 W each
+can nominally request ~600 W before derating, but a ~400 W initial source
+cannot sustain this. More useful output may be qualified above 300 W only with
+matching source, LEM thermal, PSM and protective limits; do not assume the
+entire ~600 W installed electrical scale is an approved operating mode.
 
 Required implementation evidence before full PSM replication:
 
