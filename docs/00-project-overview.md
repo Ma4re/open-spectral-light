@@ -36,9 +36,13 @@ The tiers describe capability, not separate products.
 ### Professional
 
 - Optional local BLE control.
-- Better dimming and flicker behavior.
-- Thermal telemetry and compensation.
+- Extended dimming/temporal characterization beyond Phase 1's required camera
+  acceptance baseline, when justified by real use cases.
+- Enhanced thermal telemetry and compensation.
 - Optional additional emitter channels for spectral correction.
+
+The **Basic** capability is not allowed to postpone the agreed normal-video
+flicker/banding requirements to a premium tier.
 
 ### Measurement / lab
 
