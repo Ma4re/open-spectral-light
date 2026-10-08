@@ -59,8 +59,11 @@ Prototype A therefore uses 4 WW + 4 CW COBs.
 
 ## 4. Operating-power target
 
-The prototype uses a 300 W total LEM operating ceiling as the initial
-characterization target.
+The prototype starts characterization at **~300 W combined LED power**. This
+is a test point, **not a hardwired limit, a fixed maximum, or a promise of the
+final continuous rating**. [ADR-0001](../adr/0001-power-envelope-policy.md)
+permits increasing qualified power when measured optical improvement justifies
+emitter, PSM, source, cooling, acoustic and safety trade-offs.
 
 At a pure endpoint, only one color bank must carry the full module output.
 A 300 W bank therefore requires approximately 75 W per active COB.
@@ -73,12 +76,12 @@ Interpolating the published V18 performance table gives approximately:
 
 This leaves current margin below the 2.34 A maximum.
 
-At the absolute maximum of 2.34 A, one 4-COB bank would be approximately
-334 W electrical. The additional luminous output over the 300 W operating point
-is small enough that the extra thermal stress is not attractive for normal
-operation.
-
-The 300 W ceiling is a prototype TARGET, not yet a frozen product rating.
+At the published component current maximum of 2.34 A, one 4-COB bank would
+be approximately 334 W electrical. The extra light at that point may be small
+relative to the added heat, so this is **not** a recommendation to operate at
+component maximum. The final current and aggregate power envelopes will be
+set from photometric/thermal and fault-response evidence, not chosen to meet a
+round wattage.
 
 ## 5. First-order endpoint optical output
 
@@ -132,9 +135,11 @@ A simple equal-current WW/CW mixture is not assumed to correspond to any
 particular Kelvin value. Actual current mappings will come from measured
 SPD/chromaticity and output data.
 
-The 4+4 architecture intentionally provides more installed electrical capability
-than the 300 W total-module ceiling so current can be redistributed between WW
-and CW across the CCT range.
+The 4+4 architecture provides more installed combined electrical capability
+than the **initial 300 W bench point** so current can be redistributed between
+WW and CW across the CCT range. Higher aggregate operation is permitted **only
+within a newly qualified continuous thermal, optical, PSU and protection
+envelope**, never merely because the current regulators can command it.
 
 ## 7. Physical emitter layout
 
@@ -225,7 +230,8 @@ At the 300 W endpoint:
 
 - 4 active branches x approximately 2.11 A each;
 - branch Vf approximately 35–41 V design range;
-- bank electrical ceiling approximately 300 W.
+- approximately 300 W **initial bank characterization point**, not a
+  hardware ceiling.
 
 Power-stage comparison now makes a **48 V nominal bus with eight independent
 buck current regulators** the preferred Prototype A direction. The bus remains a
@@ -290,7 +296,8 @@ envelope:
 | COB branch forward-voltage design range | approximately 31–42 V |
 | Branch normal prototype current | 0–approximately 2.11 A, subject to low-current characterization |
 | Branch absolute component limit | 2.34 A |
-| Total LEM operating ceiling | approximately 300 W TARGET |
+| Initial LEM characterization point | approximately 300 W, **not a fixed maximum** |
+| Qualified continuous LEM power | OPEN; may exceed 300 W if justified by optical, thermal, acoustic, source and protection evidence |
 | One-bank installed capability | approximately 334 W component-level maximum scale |
 | Physical raw emitter envelope | approximately 110 mm |
 | Prototype carrier/spreader envelope | approximately 120–130 mm |
@@ -305,8 +312,8 @@ margin and must not copy these prototype values blindly.
 
 The 4+4 topology is the smallest symmetric configuration that:
 
-- can reach a genuine approximately 300 W endpoint without exceeding COB current
-  limits;
+- can characterize approximately 300 W at an endpoint without exceeding COB
+  current limits and can assess higher qualified operating points;
 - maintains identical spatial emitter count for warm and cool banks;
 - provides power headroom for CCT-dependent current redistribution;
 - uses currently orderable standard COBs;
