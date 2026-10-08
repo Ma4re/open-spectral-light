@@ -103,11 +103,13 @@ around slow-motion production.
 | PWR-003 | TARGET | The external-DC architecture should allow operation from either an AC/DC supply or a compatible battery solution without changing the lighting head. |
 | PWR-004 | FROZEN | An external source is compatible only when it satisfies the defined voltage, current capability, polarity, protection, and connector requirements; arbitrary power sources shall not be assumed safe or compatible. |
 | PWR-005 | TARGET | A **48 V nominal external DC bus** is the preferred Phase 1 power class for Prototype A; the final accepted input range remains OPEN until dropout, protection, cable-drop, and thermal validation are complete. |
-| PWR-006 | TARGET | A full-output external source in approximately the **400 W / 8.3 A class at 48 V** should provide practical margin for a ~300 W LEM plus driver, cooling, controller, and auxiliary loads. Final source rating remains OPEN. |
+| PWR-006 | TARGET | A **400 W / 8.3 A source class at 48 V** is an initial **~300 W LED characterization** supply candidate, not a fixed full-output source rating. Qualifying a higher LED operating power requires a suitably rated source, cable/connector, cooling and PSM after measured efficiency and derating. |
 | PWR-007 | FROZEN | Battery compatibility does not imply direct connection of an arbitrary raw battery stack. A battery source must remain inside the accepted head input envelope or use an external regulator/adapter. |
 | PWR-008 | OPEN | Input connector, polarity convention, fuse/eFuse strategy, reverse-polarity protection, transient suppression, inrush control, and final undervoltage/overvoltage thresholds remain to be selected. |
-| PWR-009 | FROZEN | The PSM architecture shall constrain **per-branch current, aggregate LEM power, and total PSM input load** as distinct limits. Normal software power budgeting shall not be confused with independent electrical protection. |
-| PWR-010 | TARGET | Prototype A shall demonstrate safe behavior when all eight branches are commanded to full scale, despite a ~300 W LEM budget and ~400 W-class source. The fault/derating mechanism and hardware thresholds remain OPEN until implementation evidence exists. |
+| PWR-009 | FROZEN | Maintain distinct **per-branch current limits, qualified aggregate LEM operating-power allocation, and independent PSM/source overload protection**. A normal power budget shall not be misrepresented as a hardware fault limit. |
+| PWR-010 | FROZEN | **300 W is not a mandatory hardware clamp or fixed maximum output.** It is an initial characterization point. The qualified maximum useful operating power may increase when emitter, PSM, PSU, cooling, optical and acoustic evidence supports it; safe response to requests above the current qualified source/system envelope is mandatory. |
+
+The accepted power-envelope policy is [ADR-0001](../adr/0001-power-envelope-policy.md).
 
 A DC-005/barrel-style connector is therefore **not frozen**. The likely current
 class is already too high to assume a small barrel connector is appropriate.
@@ -276,7 +278,7 @@ The next work should resolve these questions in roughly this order:
 2. Is 2700–6500 K the best useful range after emitter-efficiency and color-quality trade-offs are considered?
 3. What emitter/channel architecture provides high-quality tunable white while preserving a path to tint/spectral expansion?
 4. Does the preferred eight-branch 48 V buck PSM meet dropout, efficiency, EMI, temporal-modulation, and thermal requirements in a real branch prototype?
-5. Does the ~300 W Prototype A LEM actually satisfy the 1200 lx limit-case target through the reference modifier?
+5. What **qualified operating-power level**, beginning with ~300 W characterization and increasing only when useful, meets the 1200 lx TARGET through the reference modifier?
 6. What final input connector and protection strategy are appropriate for the validated 48 V/current envelope?
 7. What thermal architecture and acoustic target follow from sustained power dissipation?
 8. Which local parameters actually exist in Phase 1, and does the encoder require supporting buttons?
