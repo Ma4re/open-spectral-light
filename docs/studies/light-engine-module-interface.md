@@ -230,7 +230,8 @@ Prototype A establishes a first practical example:
 - four independently regulated CW branches;
 - approximately 31–42 V per COB branch;
 - up to approximately 2.11 A normal prototype current per branch;
-- 300 W total LEM operating ceiling.
+- approximately 300 W initial LEM characterization point; qualified higher
+  output may follow [ADR-0001](../adr/0001-power-envelope-policy.md).
 
 These are prototype values, not yet frozen interface limits.
 
@@ -341,10 +342,11 @@ higher. The branch must have a separately validated current-setpoint ceiling,
 fault response, and startup/reset behavior.
 
 Eight independently regulated branches can nominally demand roughly **600 W**
-if all run around 75 W concurrently, while the intended LEM operating budget
-is approximately **300 W**. Accordingly, the CM/PSM boundary must define an
-aggregate module power budget and an independent source/input protection
-mechanism. Firmware arbitration alone is not proof of fail-safe behavior;
+if all run around 75 W concurrently. **300 W is merely the first bench point**:
+the CM/PSM boundary must define a *qualified* aggregate operating budget and
+independent source/input overload containment, not an arbitrary fixed 300 W
+hardware trip. A higher qualified budget may require a larger source and
+thermal design. Firmware arbitration alone is not proof of fail-safe behavior;
 the acceptable hardware response to a loss of control or an overbudget request
 must be demonstrated in simulation and hardware.
 
@@ -396,9 +398,9 @@ The stable CM-to-PSM logical contract should expose behaviors such as:
 
 The exact physical communication protocol remains OPEN.
 
-This separation allows a future 2-channel 300 W PSM and a future higher-power or
-multi-channel PSM to implement the same controller-facing behavior where
-possible.
+This separation allows a two-role PSM with a **qualified power envelope** and
+a future higher-power/multi-channel PSM to expose the same controller-facing
+behavior where possible, without assuming 300 W is a module class limit.
 
 ## 11. Calibration ownership
 
@@ -465,9 +467,10 @@ an ADR/interface specification.
 
 ## 14. Immediate next step
 
-Prototype A is now dimensioned at 4 WW + 4 CW COBs with a 300 W target ceiling,
-approximately 31–42 V branch compliance, approximately 2.11 A normal maximum
-branch current, and an approximately 110 mm raw source envelope.
+Prototype A is dimensioned at 4 WW + 4 CW COBs with an initial ~300 W LED
+characterization point, approximately 31–42 V branch compliance, ~2.11 A
+baseline normal full-scale current per branch, and an approximately 110 mm raw
+source envelope. The final qualified continuous aggregate power remains OPEN.
 
 The next work is to turn those values into a benchable hardware boundary:
 
