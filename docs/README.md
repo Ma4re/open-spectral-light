@@ -72,6 +72,8 @@ Current studies:
 - [`studies/prototype-a-driver-generation-comparison.md`](studies/prototype-a-driver-generation-comparison.md)
 - [`studies/prototype-a-tps92205x-branch.md`](studies/prototype-a-tps92205x-branch.md)
 
+Accepted cross-cutting power policy: [ADR-0001 — Qualified Output-Power Envelope](adr/0001-power-envelope-policy.md).
+
 Accepted durable decisions belong in `adr/`. Current execution context belongs in
 `agent-handoff.md`. Temporary implementation plans do not override architecture,
 project policy, product requirements, or accepted ADRs.
