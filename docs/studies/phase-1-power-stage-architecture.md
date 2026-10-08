@@ -214,8 +214,14 @@ Prototype A power envelope.
 **Important:** eight 75 W-class branches have roughly 600 W of *installed*
 combined capability. The 300 W LEM ceiling is not automatically guaranteed by
 eight independent current regulators. Normal WW/CW power allocation and an
-independent input overload/limit-or-shutdown path must keep the head within its
-actual supply and LEM limits, including if all branches are commanded on.
+independent input overload/limit-or-shutdown path are distinct functions.
+An input overload trip is **not** an independent exact 300 W LED-module clamp.
+
+The candidate CM/PSM/LEM protection contract, fault-response matrix, and
+validation plan are documented in
+[`prototype-a-power-and-fault-safety.md`](prototype-a-power-and-fault-safety.md).
+Do not select overload thresholds or release an eight-branch PSM without
+addressing these distinctions.
 
 This does not freeze the final input connector or exact minimum source rating.
 
