@@ -118,17 +118,25 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-The logical CM/PSM/LEM safety contract is complete. Now compare the **minimum
-protection circuits** required to implement it: default-off hardware-supervised
-enable and freshness, a fault latch for TPS922054 faults where the IC can keep
-switching, bounded per-COB current, and PSM input overload protection.
+The CM/PSM/LEM logical safety contract and minimum protection-architecture
+**comparison** are documented in
+[`studies/prototype-a-minimal-psm-protection-architecture.md`](studies/prototype-a-minimal-psm-protection-architecture.md).
+The leading **study direction, not a frozen schematic**, is a default-off EN/PWM
+hardware gate with independent external window watchdog, shared FAULT latch,
+PSM input protection with appropriately rated external switch FETs, and normal
+branch-current bounding by TPS922054 R_SENSE. TI TPS3430/TPS3431 and Analog
+Devices LTC4368 are *examples to evaluate*, not approved BOM selections.
+One single-branch overcurrent failure can remain below the total PSM input
+trip: the input protector alone cannot qualify the COB current-safety path.
 **Resolved in ADR-0001:** do not hardwire a 300 W limit. Establish the
 qualified useful continuous-power envelope through optical, thermal and
 acoustic tests; design hardware fault limits from source/PSM/LEM electrical
 ratings and risk analysis, not from a nominal characterization wattage.
 
-Then simulate the protected single TPS922054 branch in TI PSpice/SIMPLIS,
-followed by one real branch PCB. Verify 31/35.5/41.2 V LED loads, ~2.11 A
+Now propose the minimal **actual protection schematic** (watchdog/reset,
+FAULT latch, EN/PWM dominant override, source protector with FET SOA/input
+transient analysis, branch sense-fault transient), and simulate its testable
+subcircuits before a one-branch TPS922054 PCB. Verify 31/35.5/41.2 V LED loads, ~2.11 A
 nominal maximum command, safe transient current, startup, thermal/fault
 response, COUT/dimming and the controller-disconnected condition. Only after
 one branch and a representative aggregate-overload test pass should the branch
