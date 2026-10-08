@@ -29,3 +29,7 @@ Date: YYYY-MM-DD
 ## Consequences
 ## Verification / evidence
 ```
+
+Current accepted decisions:
+
+- [ADR-0001 — Separate useful output power from hardware fault limits](0001-power-envelope-policy.md)
