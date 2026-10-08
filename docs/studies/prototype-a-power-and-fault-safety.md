@@ -51,7 +51,7 @@ measurements justify the implementation.
 | Phase 1 total LED output | TARGET | ~300 W combined WW + CW |
 | External DC source | TARGET | Regulated 48 V nominal, ~400 W class |
 | PSM branch topology | Preferred study direction | Eight independent constant-current bucks |
-| Prototype controller | Open | TPS922054 first branch, TPS922055 EMI comparison |
+| Prototype branch-driver candidate | TARGET, not frozen | TPS922054 first branch, TPS922055 EMI comparison |
 
 These power figures describe **different conditions**. The 600 W and 696 W
 calculations illustrate what could be demanded without aggregate control; they
@@ -464,7 +464,41 @@ Next validate the **shared supervisor** with representative dummy loads, so
 the aggregate fault can be tested without building the full high-power engine.
 Only then replicate eight power stages.
 
-## 11. Pre-Rev-A decisions still OPEN
+## 11. Fault-to-verification traceability
+
+The `FS-xx` entries above define **required behavior** and `VT-xx` entries
+define proposed evidence. A passing branch-level test does not necessarily
+close a head-level fault: note which hardware boundary is actually exercised.
+
+| Fault IDs | Required tests | Verification level / gap |
+|---|---|---|
+| FS-01, FS-15 | VT-03, VT-04, VT-10 | CM policy plus independent aggregate-load supervisor; one LED branch cannot prove eight-branch overload safety |
+| FS-02, FS-03, FS-04 | VT-05, VT-07 | Branch plus hardware inhibit; test faults where the TPS continues switching |
+| FS-05, FS-06 | VT-06, VT-07 | Branch and safe load emulator; never test unplanned live reconnect on a real COB |
+| FS-07, FS-22 | VT-12 | Forced ineffective enable / stuck-switch scenario; source isolation must be demonstrated or remain an unresolved design blocker |
+| FS-08, FS-09 | VT-01, VT-05, VT-08 | Independent freshness, static stuck-on controls, reset and lost communications |
+| FS-10, FS-11 | VT-02, VT-14 | Safe boot and emulated module-presence loss; **no energized LEM unplug test** |
+| FS-12, FS-13, FS-14 | VT-09, VT-15 | Thermal fault injection; specifically account for one COB with poor contact not seen by bank sensors |
+| FS-16, FS-17 | VT-10 | Voltage/input-protection corners and rated transient energy |
+| FS-18 | VT-07, VT-11 | Fault and thermal autorecovery versus external latch/rearm |
+| FS-19 | VT-13, VT-16 | Loss of a physical COB branch while the rest of its logical bank is still active |
+| FS-20 | VT-02, VT-03 | Wrong but CRC-valid calibration values, bounds and plausible power allocation |
+| FS-21 | VT-01, VT-09, VT-17 | Open/short control, NTC, enable and FAULT wiring; verify default electrical states |
+
+Add these explicit verification cases to the preceding matrix:
+
+| Test | Requirement / injection | Evidence to record | Pass criterion |
+|---|---|---|---|
+| VT-14 | Emulate loss of LEM presence during enabled operation **without physically opening a powered connector** | Presence logic, enable, LED current and rearm behavior | Emission safely inhibited, no automatic return on restored presence |
+| VT-15 | Emulate an individual COB with an abnormal thermal interface using a safe limited-energy fixture or validated thermal model | Local case/hotspot and bank-sensor temperatures versus current | Coverage demonstrably adequate **or** document a blocking gap and introduce a corrective measure |
+| VT-16 | Inhibit one WW or CW branch while other branches operate | Remaining branch currents, output uniformity and chromaticity | No unsafe redistribution; qualified degraded mode or controlled all-off behavior |
+| VT-17 | Disconnect/short each safety-relevant control and diagnostic line individually, using a protected fixture | Physical enable and fault states, current and response time | Defined default-off or diagnostically safe condition; otherwise explicit unresolved blocker |
+
+**Traceability status:** these are *planned tests*, not evidence of passing
+hardware. Actual pass/fail and waveform references belong with the executed
+branch and head-level test records.
+
+## 12. Pre-Rev-A decisions still OPEN
 
 1. Whether the normal 300 W LED ceiling is also required as an **independently
    guaranteed exact hard limit**, or whether normal accurate 300 W allocation
@@ -488,7 +522,7 @@ Only then replicate eight power stages.
 These are implementation choices requiring further investigation, not reasons
 to select a different MCU or LED driver today.
 
-## 12. Decision gate and next exact step
+## 13. Decision gate and next exact step
 
 **This study completes the logical CM–PSM–LEM safety contract.**
 
