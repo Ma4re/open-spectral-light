@@ -6,7 +6,10 @@ This plan defines the first reproducible bench characterization of the modular
 high-power tunable-white light engine before the driver topology, final thermal
 solution, DC input, or 1200 lx limit target is frozen. Prototype A is the current
 reference implementation: 4 warm-white + 4 cool-white Bridgelux V18 Thrive COBs
-with a 300 W total-module target ceiling.
+with an **initial approximately 300 W characterization point**; higher
+continuous output is permitted only after corresponding source, cooling,
+optical and fault-envelope validation under
+[ADR-0001](../adr/0001-power-envelope-policy.md).
 
 The test answers four engineering questions:
 
@@ -14,8 +17,9 @@ The test answers four engineering questions:
    modifiers?
 2. How do output, CCT, Duv, and spectrum change with current and temperature?
 3. What electrical and thermal load must the final head handle?
-4. Is the approximately 300 W Prototype A envelope sufficient, or does the
-   output requirement justify a larger LEM or a revised optical target?
+4. At what **qualified** operating power does further electrical input stop
+   providing worthwhile illumination through the real modifiers, given thermal,
+   acoustic and cost penalties?
 
 This is a characterization plan, not a compliance-certification procedure.
 
@@ -62,8 +66,11 @@ The normal Prototype A characterization range is up to approximately 2.11 A per
 active branch, with 2.34 A treated as the COB component maximum rather than the
 normal operating target.
 
-The total module target ceiling is approximately 300 W. Mixed WW/CW tests must
-respect both the per-branch current limits and the aggregate module-power limit.
+The first module characterization target is approximately 300 W. Mixed WW/CW
+tests shall remain within the **currently qualified** source/PSM/LEM thermal
+and electrical envelope. If more useful power is justified, qualify it in
+incremental test points with adequate source, cooling and safety supervision;
+300 W is not a hardware trip threshold.
 A requested full-scale command to all eight branches must be tested first as a
 **safe limiting/shutdown scenario**, not by deliberately forcing approximately
 600 W into a 400 W-class supply.
@@ -206,7 +213,9 @@ works at every power.
 ## 7. Phase B — tunable-white mixing trajectory
 
 After the individual branches and both complete banks are thermally validated,
-characterize mixed operation while enforcing the 300 W aggregate LEM ceiling.
+characterize mixed operation beginning near 300 W total LEM power, within the
+currently qualified system budget. Explore higher points only after electrical,
+thermal, optical and acoustic qualification.
 
 Do **not** assume CCT is linear with WW/CW current ratio.
 
@@ -374,7 +383,7 @@ original observations.
 
 ## 13. Decision criteria after Prototype A
 
-Keep the approximately 300 W / 4+4 architecture direction if it:
+Keep the 4+4 architecture, initially characterized near 300 W, if it:
 
 - comfortably supports the normal 90 cm key-light scenario;
 - approaches the 120 cm limit scenario closely enough that a substantially
