@@ -58,6 +58,7 @@ still require an ADR.
 
 Current studies:
 
+- [`studies/2026-10-08-documentation-sanity-check.md`](studies/2026-10-08-documentation-sanity-check.md) — cross-document audit, corrected claims, and open hardware risks.
 - [`studies/phase-1-light-engine.md`](studies/phase-1-light-engine.md)
 - [`studies/phase-1-power-envelope.md`](studies/phase-1-power-envelope.md)
 - [`studies/phase-1-emitter-procurement.md`](studies/phase-1-emitter-procurement.md)
