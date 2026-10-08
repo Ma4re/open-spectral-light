@@ -60,6 +60,7 @@ Current studies:
 
 - [`studies/2026-10-08-documentation-sanity-check.md`](studies/2026-10-08-documentation-sanity-check.md) — cross-document audit, corrected claims, and open hardware risks.
 - [`studies/prototype-a-power-and-fault-safety.md`](studies/prototype-a-power-and-fault-safety.md) — CM/PSM/LEM protection contract, fault matrix, and pre-Rev-A safety gates.
+- [`studies/prototype-a-minimal-psm-protection-architecture.md`](studies/prototype-a-minimal-psm-protection-architecture.md) — minimal circuit options, preferred protection blocks, and simulation gates; no final IC or thresholds frozen.
 - [`studies/phase-1-light-engine.md`](studies/phase-1-light-engine.md)
 - [`studies/phase-1-power-envelope.md`](studies/phase-1-power-envelope.md)
 - [`studies/phase-1-emitter-procurement.md`](studies/phase-1-emitter-procurement.md)
