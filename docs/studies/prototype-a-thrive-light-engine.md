@@ -268,13 +268,15 @@ The exact sensor part and resistance curve remain OPEN.
 Prototype A should include the first implementation of the LEM nonvolatile
 descriptor/calibration concept.
 
-The exact memory IC/bus is still OPEN, but the prototype carrier should reserve
-space and low-voltage connectivity for module identity, interface version,
-branch count, safe current/power limits, temperature-sensor definition, and
-optical calibration data.
+The exact memory IC/bus is still OPEN, but the LEM revision shall provide
+nonvolatile storage and low-voltage connectivity for module identity, interface
+version, branch count, declared current/power limits, temperature-sensor
+definition, and optical calibration metadata.
 
-The first bench revision may operate without final production firmware support,
-but the hardware should make the concept testable.
+A bench power-stage test may use an explicit laboratory bypass configuration,
+but a normal product start shall require validated, compatible LEM identity.
+The module descriptor is not an authority to exceed the PSM's independent
+hardware limits.
 
 ## 14. Preliminary LEM-TW2 numerical envelope
 
