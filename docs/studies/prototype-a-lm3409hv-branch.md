@@ -8,8 +8,9 @@
 
 ## 1. Purpose
 
-This study turns the preferred Phase 1 power-stage architecture into one
-representative, benchable constant-current branch.
+This historical branch study turns the original LM3409HV candidate into one
+representative, benchable constant-current branch. It remains a fallback
+reference, not the current TPS92205x baseline.
 
 The branch is intended to drive one Prototype A Thrive COB from the nominal
 48 V internal bus.
