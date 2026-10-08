@@ -292,11 +292,12 @@ thermal-protection mechanism.
 A replaceable light engine should carry its own identity and calibration rather
 than require every controller to be manually reconfigured after replacement.
 
-The preferred Phase 1 direction is a small nonvolatile memory on the LEM,
-accessible through a low-voltage serial interface.
+The Phase 1 LEM shall carry a small **nonvolatile module identity and
+calibration-metadata store**. This is a durable module-interface requirement,
+not a frozen IC or protocol choice.
 
-The exact memory part and physical bus are not frozen, but the logical descriptor
-should eventually contain at least:
+The exact memory part, bus and storage format remain OPEN, but the logical
+descriptor shall provide at least:
 
 ```text
 interface_major
@@ -321,7 +322,11 @@ manufacturing_test_revision
 ```
 
 The descriptor makes the module self-describing for configuration and
-calibration.
+calibration. Its format shall include explicit versioning and an integrity check
+suitable for detecting incomplete/corrupt records. How atomic updates or
+redundancy are implemented remains OPEN until the real write/update requirement
+exists. A module that has not yet been calibrated must identify that state
+explicitly rather than presenting fabricated coefficients.
 
 It is **not** the sole safety authority.
 
