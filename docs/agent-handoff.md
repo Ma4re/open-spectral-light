@@ -43,9 +43,11 @@ A ~400 W external source class is still the current full-output target. Neither
 
 ## Active Goal
 
-Turn the Phase 1 product requirements into quantitative optical, temporal,
-electrical, and thermal targets before freezing specific MCU, driver, emitter,
-connector, or sensor parts.
+Translate the Phase 1 electrical and thermal targets into a **verifiable safe
+one-branch prototype**, including independent source overload containment,
+per-COB current limits, fail-off enable behavior, thermal fault response,
+and module NVM validation, before selecting/finalizing PSM implementation
+hardware.
 
 ## Accepted Constraints
 
@@ -82,6 +84,10 @@ connector, or sensor parts.
 
 ## Known Issues
 
+The safety/fault response requirements and test matrix are now documented in
+[`studies/prototype-a-power-and-fault-safety.md`](studies/prototype-a-power-and-fault-safety.md).
+**This is a completed study, not an implemented or validated circuit.**
+
 The 2026-10-08 documentation sanity check identified hardware-interface
 validation gaps that must not be treated as resolved:
 
@@ -107,10 +113,18 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Define the branch/LEM/PSM power and fail-safe contract alongside the TI
-PSpice/SIMPLIS simulation for the sized TPS92205x branch, then build one
-physical Rev A branch. Validate 31/35.5/41.2 V loads, ~2.11 A current,
-input sag toward the ~46 V full-power floor, COUT/optical ripple, temperature,
-FAULT behavior, flexible dimming, and TPS922054-vs-TPS922055 optical/EMI
-behavior. Only after this single branch passes should it be replicated eight
-times. Continue the carrier thermal model and local mixing study in parallel.
+The logical CM/PSM/LEM safety contract is complete. Now compare the **minimum
+protection circuits** required to implement it: default-off hardware-supervised
+enable and freshness, a fault latch for TPS922054 faults where the IC can keep
+switching, bounded per-COB current, and PSM input overload protection.
+Resolve whether 300 W is only the normal operating cap or must also be a
+separately enforced exact hardware limit. Establish fault thresholds/timing
+from datasheet + risk analysis rather than guessing components.
+
+Then simulate the protected single TPS922054 branch in TI PSpice/SIMPLIS,
+followed by one real branch PCB. Verify 31/35.5/41.2 V LED loads, ~2.11 A
+nominal maximum command, safe transient current, startup, thermal/fault
+response, COUT/dimming and the controller-disconnected condition. Only after
+one branch and a representative aggregate-overload test pass should the branch
+be replicated eight times. Continue the carrier thermal model and local mixing
+study in parallel.
