@@ -53,6 +53,8 @@ safe test arrangement with:
 - current limit set per physical branch;
 - measured branch voltage and current;
 - aggregate WW/CW and total power calculation;
+- programmable/requested module budget versus independently enforced bench
+  source/branch limits;
 - emergency output disable;
 - no requirement for the final production driver topology.
 
@@ -62,6 +64,9 @@ normal operating target.
 
 The total module target ceiling is approximately 300 W. Mixed WW/CW tests must
 respect both the per-branch current limits and the aggregate module-power limit.
+A requested full-scale command to all eight branches must be tested first as a
+**safe limiting/shutdown scenario**, not by deliberately forcing approximately
+600 W into a 400 W-class supply.
 
 ### Thermal
 
@@ -117,7 +122,10 @@ The test fixture shall include:
 - eye-safe working practice: do not view the energized bare matrix directly;
 - current limiting active before output enable;
 - accessible emergency shutdown;
-- temperature monitoring active before high-power operation.
+- temperature monitoring active before high-power operation;
+- inspection of individual COB thermal contacts and representative local
+  temperatures: one sensor per WW/CW bank may not detect a failed thermal
+  interface at an individual COB;
 
 Until manufacturer guidance is received, the bench shall not intentionally
 operate at absolute-maximum current/power ratings.
