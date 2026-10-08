@@ -211,6 +211,12 @@ At 48 V:
 Therefore a **48 V nominal, approximately 400 W source class** is the preferred
 Prototype A power envelope.
 
+**Important:** eight 75 W-class branches have roughly 600 W of *installed*
+combined capability. The 300 W LEM ceiling is not automatically guaranteed by
+eight independent current regulators. Normal WW/CW power allocation and an
+independent input overload/limit-or-shutdown path must keep the head within its
+actual supply and LEM limits, including if all branches are commanded on.
+
 This does not freeze the final input connector or exact minimum source rating.
 
 A future battery solution should present a regulated source compatible with the
@@ -431,7 +437,8 @@ The later hardware design must evaluate:
 - inrush control for bulk capacitance;
 - undervoltage lockout;
 - overvoltage behavior;
-- input current measurement if useful.
+- input current measurement and an explicitly defined aggregate overload
+  response, because the installed eight-branch load can exceed source rating;
 
 The input-protection stage is common to the head and should not be duplicated
 eight times.
