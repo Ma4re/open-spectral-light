@@ -15,14 +15,18 @@ Each phase should leave a useful, testable artifact.
 - Choose controller MCU and power architecture.
 - Implement two independently controlled white channels.
 - Manual/local controls and wired programming/debug.
-- Basic current, temperature, and fault protection.
+- Basic current, temperature, and fault protection, including aggregate LED
+  module and source power budgeting.
+- Validate normal video compatibility at the agreed 24/25/30/50/60 fps and
+  180-degree-equivalent shutter baseline.
 - Characterize dimming, flicker, thermal behavior, and usable optical output.
 
 ## Phase 2 — Local professional control
 
 - Add BLE if it materially improves operation.
 - Define a compact local control/telemetry protocol.
-- Improve dimming/flicker behavior and thermal compensation.
+- Extend dimming/flicker robustness beyond the Phase 1 baseline where
+  measurements justify additional capability; improve thermal compensation.
 - Preserve full offline/local operation without a phone.
 
 ## Phase 3 — Measurement module
