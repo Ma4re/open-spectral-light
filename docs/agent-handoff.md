@@ -82,7 +82,23 @@ connector, or sensor parts.
 
 ## Known Issues
 
-None. The repository intentionally contains no production target yet.
+The 2026-10-08 documentation sanity check identified hardware-interface
+validation gaps that must not be treated as resolved:
+
+- Eight independent 75 W-class branches can together request ~600 W, exceeding
+  the 300 W LEM target and ~400 W external source class. The PSM needs defined
+  aggregate limiting and an independent safe overload response.
+- TPS92205x internal switch-cycle overcurrent protection is not a qualified
+  2.34 A emitter-protection mechanism; validate current reference, analog clamp,
+  startup, and sense-fault response.
+- Prototype A COUT and optical ripple are only preliminary; a previous 0.9 Ohm
+  LED dynamic-resistance assumption has been withdrawn in favor of measured
+  small-signal behavior.
+- Two bank-level temperature sensors may not detect a poor individual-COB
+  thermal contact; verify thermal-contact and shutdown coverage during hardware
+  design.
+
+No production target or physical hardware test results exist yet.
 
 ## Unverified Hardware Behavior
 
@@ -91,8 +107,9 @@ because no hardware revision has been designed or built.
 
 ## Next Exact Step
 
-Run the current TI PSpice/SIMPLIS model for the sized TPS92205x branch and then
-build one physical Rev A branch. Validate 31/35.5/41.2 V loads, ~2.11 A current,
+Define the branch/LEM/PSM power and fail-safe contract alongside the TI
+PSpice/SIMPLIS simulation for the sized TPS92205x branch, then build one
+physical Rev A branch. Validate 31/35.5/41.2 V loads, ~2.11 A current,
 input sag toward the ~46 V full-power floor, COUT/optical ripple, temperature,
 FAULT behavior, flexible dimming, and TPS922054-vs-TPS922055 optical/EMI
 behavior. Only after this single branch passes should it be replicated eight
