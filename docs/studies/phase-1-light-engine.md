@@ -1,5 +1,9 @@
 # Phase 1 Light-Engine Architecture Study
 
+> **Status:** pre-decision architecture comparison. Prototype A currently tests the
+> split-white option C (4 WW + 4 CW). The locally mixed option B is an
+> alternative benchmark, not the currently preferred first implementation.
+
 ## 1. Purpose
 
 This study compares light-engine directions for the Phase 1 tunable-white
@@ -90,10 +94,9 @@ axis and driven as matched warm/cool channel groups.
 - multiple COB tolerances must be characterized;
 - correction-channel placement must avoid spatial color separation.
 
-**Conclusion:** distributor-backed COB clusters are again the preferred
-prototype direction because supply-chain independence is now a Phase 1
-requirement. The larger emitting geometry is an optical problem the project can
-measure and engineer around; dependency on a direct-only custom matrix is not.
+**Conclusion:** a distributor-backed integrated tunable-white COB cluster is a
+strong optical-mixing **alternative and Prototype B reference**. It is not the
+first high-fidelity Prototype A implementation.
 
 ### C. Separate warm and cool high-fidelity COBs
 
@@ -113,9 +116,10 @@ One or more warm-white COBs and separate cool-white COBs are mixed optically.
 - Bowens point-source optics become more difficult;
 - two thermally different emitter sets can drift differently.
 
-**Conclusion:** useful research/prototype option, but less attractive than
-locally mixed tunable-white COBs for a compact Bowens head unless its spectral
-advantage proves substantial.
+**Conclusion:** **current Prototype A research choice** because of the
+availability and high-fidelity direction of standard single-CCT emitters. Its
+larger emitting geometry and angular/spatial color mixing remain high-risk
+unknowns that must be measured against an integrated COB reference.
 
 ### D. Custom interleaved multi-channel LED array
 
@@ -202,10 +206,12 @@ For a photography/video source the next comparison should prioritize:
 - consistency versus drive current;
 - camera tests on skin tones and saturated materials.
 
-Bridgelux Thrive is notable in the present survey because the manufacturer
-publishes 98 CRI, R1–R15 greater than 90, and TM-30 Rf 96 / Rg 99 for the
-technology. This makes it a useful **quality reference**, even if its available
-power per COB may require clustering.
+**Do not transfer one Thrive family's color specifications to another.**
+Bridgelux Vesta Thrive tunable-white advertises typical CRI 98 and corresponding
+TM-30 values for that specific family. The Gen 7 V18 Thrive single-CCT COBs
+used in Prototype A are documented as **CRI 95**. Their actual R9, TM-30, SPD,
+and camera rendition must be verified for the specific orderable bins and
+purchased samples. A shared brand name is not a shared optical specification.
 
 ## 6. Recommended architecture direction for the first prototype
 
