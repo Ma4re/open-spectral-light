@@ -1,5 +1,11 @@
 # Phase 1 Light-Engine Power Envelope
 
+> **Status:** historical and comparative power-envelope study. Section 4's
+> Yujileds matrices are **not** procurement candidates. The current first
+> prototype uses distributor-backed V18 Thrive split-white COB banks. Commercial
+> photometrics and interpolation below remain **approximate benchmarks**, not a
+> prediction or a validated electrical power requirement.
+
 ## 1. Purpose
 
 This study turns the Phase 1 optical target into a practical electrical and
@@ -89,7 +95,7 @@ The Thrive cluster remains valuable as:
 
 It is no longer the preferred first high-power prototype architecture.
 
-## 4. Archived benchmark: purpose-built high-power tunable-white matrices
+## 4. Historical benchmark only: purpose-built high-power tunable-white matrices
 
 Yujileds publishes bicolor LED Matrix modules specifically targeted at
 photographic, film, studio, stage, and entertainment lighting. These parts are
@@ -160,7 +166,7 @@ states 1440 W maximum. As with the 300 W-class part, the combined continuous
 thermal/current envelope must be clarified with the manufacturer instead of
 being inferred from the section title.
 
-### 4.3 Why these matrices change the prototype strategy
+### 4.3 Why these matrices remain a useful optical benchmark
 
 These parts demonstrate that a high-output, high-CRI bicolor engine can be
 implemented as one purpose-built optical matrix rather than a ring or cluster of
