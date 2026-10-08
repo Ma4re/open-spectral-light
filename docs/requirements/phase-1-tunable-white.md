@@ -106,6 +106,8 @@ around slow-motion production.
 | PWR-006 | TARGET | A full-output external source in approximately the **400 W / 8.3 A class at 48 V** should provide practical margin for a ~300 W LEM plus driver, cooling, controller, and auxiliary loads. Final source rating remains OPEN. |
 | PWR-007 | FROZEN | Battery compatibility does not imply direct connection of an arbitrary raw battery stack. A battery source must remain inside the accepted head input envelope or use an external regulator/adapter. |
 | PWR-008 | OPEN | Input connector, polarity convention, fuse/eFuse strategy, reverse-polarity protection, transient suppression, inrush control, and final undervoltage/overvoltage thresholds remain to be selected. |
+| PWR-009 | FROZEN | The PSM architecture shall constrain **per-branch current, aggregate LEM power, and total PSM input load** as distinct limits. Normal software power budgeting shall not be confused with independent electrical protection. |
+| PWR-010 | TARGET | Prototype A shall demonstrate safe behavior when all eight branches are commanded to full scale, despite a ~300 W LEM budget and ~400 W-class source. The fault/derating mechanism and hardware thresholds remain OPEN until implementation evidence exists. |
 
 A DC-005/barrel-style connector is therefore **not frozen**. The likely current
 class is already too high to assume a small barrel connector is appropriate.
@@ -167,7 +169,7 @@ allowing height and tilt adjustment independently of the Bowens modifier mount.
 | SUP-005 | FROZEN | The light engine shall be a replaceable module whose vendor-specific emitter geometry is isolated behind stable mechanical, thermal, optical, power, and identification/sensing interfaces. |
 | SUP-006 | FROZEN | Replacing a compatible two-channel light engine within the accepted electrical envelope shall not require redesign of the controller, user interface, or product-level firmware behavior. |
 | SUP-007 | FROZEN | If a future light engine exceeds the existing power-stage voltage/current/channel envelope, the power-stage module may be replaced together with the light engine while preserving the controller boundary. |
-| SUP-008 | TARGET | The replaceable light engine should carry its own module identity and calibration data so replacement does not require hard-coded vendor-specific controller firmware. |
+| SUP-008 | FROZEN | The replaceable light engine shall carry nonvolatile module identity and calibration metadata. The memory technology, format, and bus remain OPEN; incompatible, corrupt, or unavailable metadata must not enable an unsafe operating state. |
 | SUP-009 | FROZEN | Phase 1 light-engine replacement is a powered-off service operation; hot-swap support is not required. |
 
 Supply-chain independence is part of product maintainability. Optical performance
