@@ -590,6 +590,14 @@ low-brightness, EMI, availability, or 65 V-margin problem.
 
 ## 19. Aggregate power and fail-safe contract
 
+The complete logical safety contract and fault-injection/acceptance matrix
+are documented in
+[`prototype-a-power-and-fault-safety.md`](prototype-a-power-and-fault-safety.md).
+TI datasheet Table 7-3 includes faults (LED terminal short and sense-resistor
+short) that assert FAULT **while switching can continue**, so the external
+fault-inhibit/latch is a required design study before relying on automatic IC
+recovery.
+
 A 300 W total LEM operating ceiling must not be inferred from the eight
 individual 2.11 A current ceilings. Eight COBs at ~75 W each can nominally
 request ~600 W before derating. The ~400 W-class source cannot sustain that
