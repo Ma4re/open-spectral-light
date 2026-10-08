@@ -24,9 +24,11 @@ now defined. The preferred temporal strategy is concurrent WW/CW current control
 with continuous-current dimming across the principal video range and validated
 synchronized PWM/hybrid control only if needed for deep dimming. Prototype A is
 now dimensioned as 4 x 2700 K + 4 x 6500 K V18 Thrive COBs in an alternating
-octagonal ring, with an approximately 300 W total target ceiling, approximately
-2.11 A normal maximum per active branch, and an approximately 110 mm raw source
-envelope. The Bridgelux parts are prototype references rather than frozen vendor
+octagonal ring, with an **initial ~300 W total characterization point**, not
+a fixed maximum, approximately 2.11 A baseline per active branch, and an
+approximately 110 mm raw source envelope. [ADR-0001](adr/0001-power-envelope-policy.md)
+accepts a higher qualified operating-power level if it produces meaningful
+additional optical output without disproportionate thermal/acoustic costs. The Bridgelux parts are prototype references rather than frozen vendor
 dependencies. Power-stage comparison still prefers eight independent buck constant-current
 branches from a nominal 48 V bus, but the branch-controller baseline has moved
 from LM3409HV to the newer TI TPS92205x 4 A family. TPS922054 (spread spectrum
@@ -38,7 +40,9 @@ A. Detailed branch sizing now prefers TPS922054 in VSON DMT at 400 kHz with a
 ~46 V minimum full-power input. TPS922055 is the same-architecture spread-
 spectrum EMI A/B variant; 600 kHz / 33 uH is retained only as a switching-
 frequency comparison. LM3409HV remains an active, mature 75 V fallback/reference.
-A ~400 W external source class is still the current full-output target. Neither
+A ~400 W external source class is only the starting ~300 W-class **bench
+supply** candidate; a higher qualified output mode requires a compatible,
+higher-rated source and validated connectors/cooling as appropriate. Neither
 48 V nor a driver IC is yet a frozen hardware contract.
 
 ## Active Goal
@@ -91,9 +95,10 @@ The safety/fault response requirements and test matrix are now documented in
 The 2026-10-08 documentation sanity check identified hardware-interface
 validation gaps that must not be treated as resolved:
 
-- Eight independent 75 W-class branches can together request ~600 W, exceeding
-  the 300 W LEM target and ~400 W external source class. The PSM needs defined
-  aggregate limiting and an independent safe overload response.
+- Eight independent 75 W-class branches can together request ~600 W, beyond
+  the first ~400 W-class source. The CM must enforce the **currently qualified**
+  aggregate output allocation and the PSM must provide independent hazardous
+  input-overload containment, without a hardwired 300 W limit.
 - TPS92205x internal switch-cycle overcurrent protection is not a qualified
   2.34 A emitter-protection mechanism; validate current reference, analog clamp,
   startup, and sense-fault response.
@@ -117,9 +122,10 @@ The logical CM/PSM/LEM safety contract is complete. Now compare the **minimum
 protection circuits** required to implement it: default-off hardware-supervised
 enable and freshness, a fault latch for TPS922054 faults where the IC can keep
 switching, bounded per-COB current, and PSM input overload protection.
-Resolve whether 300 W is only the normal operating cap or must also be a
-separately enforced exact hardware limit. Establish fault thresholds/timing
-from datasheet + risk analysis rather than guessing components.
+**Resolved in ADR-0001:** do not hardwire a 300 W limit. Establish the
+qualified useful continuous-power envelope through optical, thermal and
+acoustic tests; design hardware fault limits from source/PSM/LEM electrical
+ratings and risk analysis, not from a nominal characterization wattage.
 
 Then simulate the protected single TPS922054 branch in TI PSpice/SIMPLIS,
 followed by one real branch PCB. Verify 31/35.5/41.2 V LED loads, ~2.11 A
