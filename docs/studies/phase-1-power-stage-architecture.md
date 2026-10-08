@@ -13,7 +13,8 @@ Prototype A currently requires:
 - 8 independently current-regulated COB branches total;
 - approximately 31–42 V branch compliance;
 - approximately 2.11 A normal prototype maximum per active branch;
-- approximately 300 W aggregate LEM operating ceiling.
+- approximately 300 W **initial LEM characterization point**, with the final
+  qualified continuous output-power envelope OPEN.
 
 The power-stage decision must also preserve the project requirements for
 camera-safe dimming, replaceable light-engine modules, and external DC power.
@@ -183,7 +184,11 @@ It increases system-voltage complexity without solving a product requirement.
 
 ## 4. Prototype power budget
 
-The LEM target is approximately 300 W electrical.
+The **first characterization point** is approximately 300 W LED electrical
+output. [ADR-0001](../adr/0001-power-envelope-policy.md) explicitly rejects
+an arbitrary 300 W hardware limit; a higher continuous rating may be qualified
+if the increased illumination is useful and the hardware/cooling/source support
+it.
 
 Using an initial PSM efficiency planning assumption of 94–96 %:
 
@@ -200,7 +205,8 @@ Allowing additional head loads for:
 - sensor/auxiliary rails;
 - margin;
 
-places the first full-output external source naturally in the **~400 W class**.
+places an **initial 300 W-class bench source** naturally in the **~400 W
+class**. This source does not establish the maximum capability of Prototype A.
 
 At 48 V:
 
@@ -208,14 +214,18 @@ At 48 V:
 400 W / 48 V = 8.33 A
 ```
 
-Therefore a **48 V nominal, approximately 400 W source class** is the preferred
-Prototype A power envelope.
+Therefore **48 V nominal, ~400 W** is an initial source candidate, **not a
+final full-output rating**. A higher qualified LED output mode may require a
+larger source, cabling/connectors, input protection and cooling, each with
+measured margins.
 
 **Important:** eight 75 W-class branches have roughly 600 W of *installed*
-combined capability. The 300 W LEM ceiling is not automatically guaranteed by
-eight independent current regulators. Normal WW/CW power allocation and an
-independent input overload/limit-or-shutdown path are distinct functions.
-An input overload trip is **not** an independent exact 300 W LED-module clamp.
+combined capability at the original per-branch test point. That does **not**
+mean 600 W is a qualified continuous LEM output or that a ~400 W source can
+provide it. Normal WW/CW power allocation shall use the currently qualified
+operating envelope; independent input overload/limit-or-shutdown protection
+shall guard against unsafe operation. No exact 300 W hardware comparator is
+required.
 
 The candidate CM/PSM/LEM protection contract, fault-response matrix, and
 validation plan are documented in
@@ -453,7 +463,8 @@ Exact parts and thresholds remain OPEN.
 
 ## 12. Thermal consequence
 
-At approximately 300 W LED power and 94–96 % converter efficiency, the PSM
+At the initial approximately 300 W LED characterization point and a hypothetical
+94–96 % converter efficiency, the PSM
 itself dissipates roughly:
 
 ```text
@@ -514,14 +525,14 @@ Prototype work may now use the following **candidate** envelope:
 | Property | Candidate value |
 |---|---|
 | External DC class | 48 V nominal |
-| Full-output source class | approximately 400 W |
-| Approximate full-output bus current | <= ~8.3 A source class |
+| Initial ~300 W LED test-source class | approximately 400 W; not full-output maximum |
+| Initial ~400 W source current at 48 V | approximately 8.3 A; may change with approved source class |
 | Logical roles | 2: WW, CW |
 | Max physical branches per role | 4 |
 | Total physical branches | 8 |
 | Branch LED voltage envelope | approximately 31–42 V |
 | Normal branch current target | 0–approximately 2.11 A |
-| LEM aggregate operating ceiling | approximately 300 W |
+| LEM initial characterization point | approximately 300 W; higher qualified power OPEN |
 | Preferred conversion | independent buck constant-current branch |
 | Normal dimming | analog/current control |
 | Deep dimming | optional common synchronized PWM/hybrid after validation |
@@ -537,7 +548,8 @@ These numbers are not yet a versioned hardware contract.
 - clears the Prototype A branch-voltage envelope;
 - has direct high-power LED-driver reference evidence;
 - keeps head current near a manageable 7–8 A class;
-- is available in normal commercial 400 W power supplies;
+- is available in normal commercial supplies, including ~400 W starting test
+  sources and higher classes when justified;
 - is already used in professional cinema-light power distribution.
 
 Before 48 V becomes FROZEN, the project should verify:
